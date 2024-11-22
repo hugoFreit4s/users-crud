@@ -3,13 +3,14 @@ import './App.css'
 import UserInput from './UserInput';
 import CustomButton from './CustomButton';
 import UserDiv from './UserDiv';
+import AllUsersList from './AllUsersList';
 
-type User = { id: string, name: string, age: number };
+export type User = { id: string, name: string, age: number };
 function App() {
-  const [user, setUser] = useState<User>();
   const [userName, setUserName] = useState<string>();
   const [userAge, setUserAge] = useState<string>();
   const [usersList, setUsersList] = useState<Array<User>>([]);
+  const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
 
   function insertUser(user: User) {
     fetch("http://localhost:8080/user", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(user) }).then(data => data.json()).then(res => setUsersList(res));
@@ -57,6 +58,11 @@ function App() {
         }}
         textContent='Add User'
       />
+      <CustomButton
+        className="secondary-btn"
+        onClickEvent={() => setIsUserModalOpen(!isUserModalOpened)}
+        textContent='See all users'
+      />
       <div>
         {usersList.map(user => {
           return (
@@ -81,6 +87,17 @@ function App() {
           )
         })}
       </div>
+      {isUserModalOpened &&
+        usersList.map(user => {
+          return (
+            <AllUsersList
+              closeModal={() => setIsUserModalOpen(!isUserModalOpened)}
+              user={user}
+              key={user.id}
+            />
+          )
+        })
+      }
     </main>
   )
 }
