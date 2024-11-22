@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css'
+import UserInput from './UserInput';
+import CustomButton from './CustomButton';
+import UserDiv from './UserDiv';
 
 type User = { id: string, name: string, age: number };
 function App() {
   const [user, setUser] = useState<User>();
   const [userName, setUserName] = useState<string>();
-  const [userAge, setUserAge] = useState<number>();
+  const [userAge, setUserAge] = useState<string>();
   const [usersList, setUsersList] = useState<Array<User>>([]);
 
   function insertUser(user: User) {
@@ -16,9 +19,15 @@ function App() {
     fetch("http://localhost:8080/user", { method: "DELETE", body: ID }).then(data => data.json()).then(res => setUsersList(res));
   }
 
+  function editUser(user: User) {
+    fetch("http://localhost:8080/user", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(user) }).then(data => data.json()).then(res => setUsersList(res));
+  }
+
   useEffect(() => {
-    console.log(usersList)
   }, [usersList])
+
+  useEffect(() => {
+  }, [userName])
 
   useEffect(() => {
     setUsersList([]);
@@ -27,26 +36,52 @@ function App() {
     } else {
       fetch("http://localhost:8080/user").then(data => data.json()).then(res => setUsersList(res));
     }
-    console.log(usersList)
-    usersList.map(x => console.log(x))
   }, []);
 
   return (
-    <>
-      <input type="text" onChange={e => setUserName(e.target.value)} />
-      <input type="number" name="user_age_input" id="user_age_input" onChange={e => setUserAge(Number(e.target.value))} />
-      <button onClick={() => insertUser({ id: crypto.randomUUID(), name: userName || '', age: userAge || 0 })}>Cadastrar</button>
-      <div style={{ display: 'flex', gap: '20px', color: 'red' }}>
+    <main>
+      <UserInput
+        userName={userName!}
+        userAge={userAge!}
+        setUserName={(name) => setUserName(name)}
+        setUserAge={(age) => setUserAge(age.toString())}
+      />
+      <CustomButton
+        className="primary-btn"
+        onClickEvent={() => {
+          if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
+            insertUser({ id: crypto.randomUUID(), name: userName, age: Number(userAge) })
+            setUserName('');
+            setUserAge('')
+          }
+        }}
+        textContent='Add User'
+      />
+      <div>
         {usersList.map(user => {
           return (
-            <div>
-              <p>{user.name}</p>
-              <button onClick={() => deleteUser(user.id)}>del</button>
-            </div>
+            <UserDiv
+              currentUserName={user.name}
+              currentUserAge={user.age}
+              userName={userName != undefined ? userName : ''}
+              userAge={userAge != undefined ? userAge : ''}
+              userID={user.id}
+              deleteUser={(id) => deleteUser(id)}
+              setUserName={(name) => setUserName(name)}
+              setUserAge={(age) => setUserAge(age.toString())}
+              onClickEvent={() => {
+                if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
+                  editUser({ id: user.id, name: userName, age: Number(userAge) });
+                }
+                setUserName('');
+                setUserAge('');
+              }}
+              key={user.id}
+            />
           )
         })}
       </div>
-    </>
+    </main>
   )
 }
 
