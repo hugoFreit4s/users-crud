@@ -1,3 +1,5 @@
-.primary-btn{
-    
+.users {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 400px;
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-import UserInput from './UserInput';
-import CustomButton from './CustomButton';
-import UserDiv from './UserDiv';
-import AllUsersList from './AllUsersList';
+import UserInput from './UserInput/UserInput';
+import CustomButton from './CustomButton/CustomButton';
+import UserDiv from './UserDiv/UserDiv';
+import AllUsersList from './AllUsersList/AllUsersList';
 
 export type User = { id: string, name: string, age: number };
 function App() {
@@ -41,62 +41,61 @@ function App() {
 
   return (
     <main>
-      <UserInput
-        userName={userName!}
-        userAge={userAge!}
-        setUserName={(name) => setUserName(name)}
-        setUserAge={(age) => setUserAge(age.toString())}
-      />
-      <CustomButton
-        className="primary-btn"
-        onClickEvent={() => {
-          if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
-            insertUser({ id: crypto.randomUUID(), name: userName, age: Number(userAge) })
-            setUserName('');
-            setUserAge('')
-          }
-        }}
-        textContent='Add User'
-      />
-      <CustomButton
-        className="secondary-btn"
-        onClickEvent={() => setIsUserModalOpen(!isUserModalOpened)}
-        textContent='See all users'
-      />
       <div>
-        {usersList.map(user => {
-          return (
-            <UserDiv
-              currentUserName={user.name}
-              currentUserAge={user.age}
-              userName={userName != undefined ? userName : ''}
-              userAge={userAge != undefined ? userAge : ''}
-              userID={user.id}
-              deleteUser={(id) => deleteUser(id)}
-              setUserName={(name) => setUserName(name)}
-              setUserAge={(age) => setUserAge(age.toString())}
-              onClickEvent={() => {
-                if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
-                  editUser({ id: user.id, name: userName, age: Number(userAge) });
-                }
-                setUserName('');
-                setUserAge('');
-              }}
-              key={user.id}
-            />
-          )
-        })}
+        <UserInput
+          userName={userName!}
+          userAge={userAge!}
+          setUserName={(name) => setUserName(name)}
+          setUserAge={(age) => setUserAge(age.toString())}
+        />
+        <CustomButton
+          className="primary-btn"
+          onClickEvent={() => {
+            if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
+              insertUser({ id: crypto.randomUUID(), name: userName, age: Number(userAge) })
+              setUserName('');
+              setUserAge('')
+            }
+          }}
+          textContent='Add User'
+        />
+        <CustomButton
+          className="secondary-btn"
+          onClickEvent={() => setIsUserModalOpen(!isUserModalOpened)}
+          textContent='See all users'
+        />
+      </div>
+      <div className="users-outside-container">
+        <div className="users">
+          {usersList.map(user => {
+            return (
+              <UserDiv
+                currentUserName={user.name}
+                currentUserAge={user.age}
+                userName={userName != undefined ? userName : ''}
+                userAge={userAge != undefined ? userAge : ''}
+                userID={user.id}
+                deleteUser={(id) => deleteUser(id)}
+                setUserName={(name) => setUserName(name)}
+                setUserAge={(age) => setUserAge(age.toString())}
+                onClickEvent={() => {
+                  if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
+                    editUser({ id: user.id, name: userName, age: Number(userAge) });
+                  }
+                  setUserName('');
+                  setUserAge('');
+                }}
+                key={user.id}
+              />
+            )
+          })}
+        </div>
       </div>
       {isUserModalOpened &&
-        usersList.map(user => {
-          return (
-            <AllUsersList
-              closeModal={() => setIsUserModalOpen(!isUserModalOpened)}
-              user={user}
-              key={user.id}
-            />
-          )
-        })
+        <AllUsersList
+          closeModal={() => setIsUserModalOpen(!isUserModalOpened)}
+          userList={usersList}
+        />
       }
     </main>
   )
