@@ -22,7 +22,10 @@ function App() {
       body: JSON.stringify(user)
     })
     const res = await data.json();
-    setUsersList(res);
+    setUsersList(prev => {
+      return [...prev, res]
+    });
+    console.log(usersList)
   }
 
   function deleteUser(ID: string) {
@@ -31,7 +34,7 @@ function App() {
 
   async function callEditUser(user: User) {
     const users = await editUser(user);
-    setUsersList(users); 
+    setUsersList(users);
   }
 
   useEffect(() => {
