@@ -12,8 +12,6 @@ export async function editUser(user: User) {
             method: "PUT", headers: { "Content-Type": "application/json" }
             , body: JSON.stringify(user)
         })
-    const res = data.status;
-    console.log(res)
     return await getUsers();
 }
 
