@@ -4,9 +4,9 @@ import UserInput from './UserInput/UserInput';
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserDiv/UserDiv';
 import AllUsersList from './AllUsersList/AllUsersList';
-import { editUser } from './API';
+import { editUser, deleteUser } from './API';
 //tratativa de erro (por enquanto só no get)!!!!!
-//pesquisar como acessar o status code
+//pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
 export type User = { id: string, name: string, age: number };
 function App() {
@@ -22,25 +22,24 @@ function App() {
       body: JSON.stringify(user)
     })
     const res = await data.json();
-    setUsersList(res);
+    setUsersList(prev => {
+      return [...prev, res]
+    });
   }
 
-  function deleteUser(ID: string) {
-    fetch("http://localhost:8080/user", { method: "DELETE", body: ID }).then(data => data.json()).then(res => setUsersList(res));
+  async function callDeleteUser(ID: string) {
+    const users = await deleteUser(ID);
+    setUsersList(users);
   }
 
   async function callEditUser(user: User) {
     const users = await editUser(user);
-    setUsersList(users); 
+    setUsersList(users);
   }
 
   useEffect(() => {
     setUsersList([]);
-    if (usersList.length > 0) {
-      fetch("http://localhost:8080/user").then(data => data.json()).then(res => setUsersList(prev => [...prev, res]));
-    } else {
-      fetch("http://localhost:8080/user").then(data => data.json()).then(res => setUsersList(res));
-    }
+    fetch("http://localhost:8080/user").then(data => data.json()).then(res => setUsersList(res));
   }, []);
 
   return (
@@ -78,11 +77,11 @@ function App() {
                 userName={user.name}
                 userAge={user.age}
                 userID={user.id}
-                deleteUser={(id) => deleteUser(id)}
+                deleteUser={(id) => callDeleteUser(id)}
                 setUserName={(name) => setUserName(name)}
                 setUserAge={(age) => setUserAge(age.toString())}
                 onClickEvent={(user) => {
-                  editUser(user);
+                  callEditUser(user);
                 }}
                 key={user.id}
               />

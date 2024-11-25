@@ -9,21 +9,21 @@ type DeleteUserModalProps = {
 
 export default function DeleteUserModal({ closeModal, userName, deleteUser }: DeleteUserModalProps) {
     return (
-        <div className={styles["backdrop-modal"]} onClick={closeModal}>
-            <div className="content" onClick={e => e.stopPropagation()}>
-                <div className="top">
+        <div className={styles["backdrop"]} onClick={closeModal}>
+            <div className={styles.content} onClick={e => e.stopPropagation()}>
+                <div className={styles.top}>
                     <p><strong>Do you really wanna delete {userName}?</strong></p>
                     <hr />
                     <p>This can't be undone.</p>
                 </div>
-                <div className="bottom">
+                <div className={styles.bottom}>
                     <CustomButton
-                        className="primary-btn"
+                        className="danger-btn"
                         onClickEvent={closeModal}
                         textContent="Cancel"
                     />
                     <CustomButton
-                        className="danger-btn"
+                        className="primary-btn"
                         onClickEvent={deleteUser}
                         textContent="Confirm"
                     />

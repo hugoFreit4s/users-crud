@@ -1,0 +1,18 @@
+button {
+    border: 1px solid gray;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.primary-btn {
+    padding: 5px 15px 5px 15px;
+}
+
+.secondary-btn .danger-btn {
+    padding: 5px 10px 5px 10px;
+}
+
+.danger-btn{
+    background-color: red;
+    color: white;
+}

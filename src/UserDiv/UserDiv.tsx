@@ -52,7 +52,6 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
                         className="primary-btn"
                         onClickEvent={() => {
                             onClickEvent({ ...user, age: +userAgeInput, name: userNameInput });
-                            console.log('w')
                             setIsEditing(!isEditing);
                         }}
                         textContent='Edit User'
