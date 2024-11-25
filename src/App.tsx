@@ -35,6 +35,7 @@ function App() {
   async function callEditUser(user: User) {
     const users = await editUser(user);
     setUsersList(users);
+    setUsersList(users);
   }
 
   useEffect(() => {
