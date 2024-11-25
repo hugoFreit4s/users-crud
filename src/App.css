@@ -3,3 +3,29 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 400px;
 }
+
+
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 9999px;
+    cursor: grab;
+}
+
+
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 9999px;
+    cursor: grabbing;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}

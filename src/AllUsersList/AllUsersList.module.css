@@ -13,10 +13,10 @@
 }
 
 .content {
-    padding: 4px;
+    padding: 1px;
     background-color: white;
     border: 1px solid black;
-    border-radius: 7px;
+    border-radius: 3px;
     /*BORDER RADIUS!!!!!!*/
     height: 90%;
     width: 30%;
@@ -27,25 +27,12 @@
     margin-top: -20px;
 }
 
-.teste{
+.inner-content {
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgba(100, 100, 100, 0.5);
-    border-radius: 9999px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
 }
 
 .close-modal-btn {

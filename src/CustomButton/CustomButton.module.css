@@ -2,17 +2,25 @@ button {
     border: 1px solid gray;
     border-radius: 3px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.5s;
 }
 
 .primary-btn {
-    padding: 5px 15px 5px 15px;
+    padding: 5px 30px 5px 30px;
 }
 
-.secondary-btn .danger-btn {
+.secondary-btn,
+.danger-btn {
     padding: 5px 10px 5px 10px;
 }
 
-.danger-btn{
-    background-color: red;
+.danger-btn {
+    background-color: rgb(231, 0, 0);
     color: white;
+    width: 100px;
+}
+
+.danger-btn:hover {
+    background-color: rgb(255, 0, 0);
 }

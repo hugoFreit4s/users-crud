@@ -3,6 +3,7 @@ import UserInput from "../UserInput/UserInput";
 import CustomButton from "../CustomButton/CustomButton";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import { User } from "../App";
+import EditUserModal from "../EditUserModal/EditUserModal";
 
 type UserDivProps = {
     user: User;
@@ -16,15 +17,8 @@ type UserDivProps = {
 }
 
 export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps) {
-    const [userNameInput, setUserNameInput] = useState<string>('');
-    const [userAgeInput, setUserAgeInput] = useState<string>('');
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
-    
-    useEffect(() => {
-        setUserNameInput(user.name);
-        setUserAgeInput(user.age.toString());
-    }, [])
 
     return (
         <div>
@@ -42,19 +36,14 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
             }}>edt</button>
             {isEditing &&
                 <div>
-                    <UserInput
-                        setUserAge={setUserAgeInput}
-                        setUserName={setUserNameInput}
-                        userAge={userAgeInput}
-                        userName={userNameInput}
-                    />
-                    <CustomButton
-                        className="primary-btn"
-                        onClickEvent={() => {
-                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput });
+                    <EditUserModal
+                        user={user}
+                        cancelEdit={() => setIsEditing(!isEditing)}
+                        onClickEvent={(userAgeInput, userNameInput) => {
+                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput })
                             setIsEditing(!isEditing);
                         }}
-                        textContent='Edit User'
+                        key={user.id}
                     />
                 </div>}
         </div>
