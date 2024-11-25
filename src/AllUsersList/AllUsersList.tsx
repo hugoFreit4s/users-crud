@@ -14,26 +14,28 @@ export default function AllUsersList({ closeModal, userList }: AllUsersListProps
             </div>
 
             <div className="content" onClick={e => e.stopPropagation()}>
-                {userList.map(user => {
-                    return (
-                        <div className="user-div">
-                            <div className="top">
-                                <img src="" alt="" />
-                                <p>{user.name}</p>
-                                <p>{user.age}</p>
+                <div className="teste">
+                    {userList.map(user => {
+                        return (
+                            <div className="user-div">
+                                <div className="top">
+                                    <img src="" alt="" />
+                                    <p>{user.name}</p>
+                                    <p>{user.age}</p>
+                                </div>
+                                <div className="bottom">
+                                    <CustomButton
+                                        className="danger-btn"
+                                        onClickEvent={() => { }}
+                                        textContent="Delete user"
+                                        key={user.id}
+                                    />
+                                </div>
                             </div>
-                            <div className="bottom">
-                                <CustomButton
-                                    className="danger-btn"
-                                    onClickEvent={() => { }}
-                                    textContent="Delete user"
-                                    key={user.id}
-                                />
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
 
+                </div>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import CustomButton from "../CustomButton/CustomButton";
-import "./DeleteUserModal.css";
+import styles from "./DeleteUserModal.module.css";
 
 type DeleteUserModalProps = {
     closeModal: () => void;
@@ -9,7 +9,7 @@ type DeleteUserModalProps = {
 
 export default function DeleteUserModal({ closeModal, userName, deleteUser }: DeleteUserModalProps) {
     return (
-        <div className="backdrop" onClick={closeModal}>
+        <div className={styles["backdrop-modal"]} onClick={closeModal}>
             <div className="content" onClick={e => e.stopPropagation()}>
                 <div className="top">
                     <p><strong>Do you really wanna delete {userName}?</strong></p>

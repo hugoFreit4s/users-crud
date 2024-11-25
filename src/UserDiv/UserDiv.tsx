@@ -1,34 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserInput from "../UserInput/UserInput";
 import CustomButton from "../CustomButton/CustomButton";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
+import { User } from "../App";
 
 type UserDivProps = {
-    currentUserName: string;
-    currentUserAge: number;
+    user: User;
     userName: string;
-    userAge: string;
+    userAge: number;
     userID: string;
     deleteUser: (userID: string) => void;
     setUserName: (name: string) => void; ///!!!!
     setUserAge: (age: number) => void; ///!!!!
-    onClickEvent: () => void;
+    onClickEvent: (user: User) => void;
 }
 
-export default function UserDiv({ currentUserName, userName, currentUserAge, userAge, userID, deleteUser, setUserName, setUserAge, onClickEvent }: UserDivProps) {
+export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps) {
+    const [userNameInput, setUserNameInput] = useState<string>('');
+    const [userAgeInput, setUserAgeInput] = useState<string>('');
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    
+    useEffect(() => {
+        setUserNameInput(user.name);
+        setUserAgeInput(user.age.toString());
+    }, [])
 
     return (
         <div>
-            <p>{currentUserName}</p>
-            <p>{currentUserAge}</p>
+            <p>{user.name}</p>
+            <p>{user.age}</p>
             <button onClick={() => setIsDeleting(!isDeleting)}>del</button>
             {isDeleting && <DeleteUserModal
                 closeModal={() => setIsDeleting(!isDeleting)}
-                userName={currentUserName}
-                deleteUser={() => deleteUser(userID)}
-                key={userID}
+                userName={user.name}
+                deleteUser={() => deleteUser(user.id)}
+                key={user.id}
             />}
             <button onClick={() => {
                 setIsEditing(!isEditing);
@@ -36,15 +43,16 @@ export default function UserDiv({ currentUserName, userName, currentUserAge, use
             {isEditing &&
                 <div>
                     <UserInput
-                        setUserAge={setUserAge}
-                        setUserName={setUserName}
-                        userAge={userAge}
-                        userName={userName}
+                        setUserAge={setUserAgeInput}
+                        setUserName={setUserNameInput}
+                        userAge={userAgeInput}
+                        userName={userNameInput}
                     />
                     <CustomButton
                         className="primary-btn"
                         onClickEvent={() => {
-                            onClickEvent();
+                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput });
+                            console.log('w')
                             setIsEditing(!isEditing);
                         }}
                         textContent='Edit User'

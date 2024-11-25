@@ -4,7 +4,10 @@ import UserInput from './UserInput/UserInput';
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserDiv/UserDiv';
 import AllUsersList from './AllUsersList/AllUsersList';
-
+import { editUser } from './API';
+//tratativa de erro (por enquanto só no get)!!!!!
+//pesquisar como acessar o status code
+//descobrir qd o back me retorna um erro
 export type User = { id: string, name: string, age: number };
 function App() {
   const [userName, setUserName] = useState<string>();
@@ -12,23 +15,24 @@ function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
 
-  function insertUser(user: User) {
-    fetch("http://localhost:8080/user", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(user) }).then(data => data.json()).then(res => setUsersList(res));
+  async function insertUser(user: User) {
+    const data = await fetch("http://localhost:8080/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user)
+    })
+    const res = await data.json();
+    setUsersList(res);
   }
 
   function deleteUser(ID: string) {
     fetch("http://localhost:8080/user", { method: "DELETE", body: ID }).then(data => data.json()).then(res => setUsersList(res));
   }
 
-  function editUser(user: User) {
-    fetch("http://localhost:8080/user", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(user) }).then(data => data.json()).then(res => setUsersList(res));
+  async function callEditUser(user: User) {
+    const users = await editUser(user);
+    setUsersList(users); 
   }
-
-  useEffect(() => {
-  }, [usersList])
-
-  useEffect(() => {
-  }, [userName])
 
   useEffect(() => {
     setUsersList([]);
@@ -70,20 +74,15 @@ function App() {
           {usersList.map(user => {
             return (
               <UserDiv
-                currentUserName={user.name}
-                currentUserAge={user.age}
-                userName={userName != undefined ? userName : ''}
-                userAge={userAge != undefined ? userAge : ''}
+                user={user}
+                userName={user.name}
+                userAge={user.age}
                 userID={user.id}
                 deleteUser={(id) => deleteUser(id)}
                 setUserName={(name) => setUserName(name)}
                 setUserAge={(age) => setUserAge(age.toString())}
-                onClickEvent={() => {
-                  if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
-                    editUser({ id: user.id, name: userName, age: Number(userAge) });
-                  }
-                  setUserName('');
-                  setUserAge('');
+                onClickEvent={(user) => {
+                  editUser(user);
                 }}
                 key={user.id}
               />

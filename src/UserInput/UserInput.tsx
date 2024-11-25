@@ -4,7 +4,7 @@ type UserInputProps = {
     userName: string;
     userAge: string;
     setUserName: (name: string) => void;
-    setUserAge: (age: number) => void;
+    setUserAge: (age: string) => void;
 }
 
 export default function UserInput({ userName, setUserName, userAge, setUserAge }: UserInputProps) {
@@ -16,7 +16,7 @@ export default function UserInput({ userName, setUserName, userAge, setUserAge }
             </div>
             <div className="single-input-div">
                 <p>Age</p>
-                <input min={0} value={userAge} type="string" name="user_age_input" id="user_age_input" onChange={e => setUserAge(Number(e.target.value))} />
+                <input min={0} value={userAge} type="string" onChange={e => setUserAge(e.target.value)} />
             </div>
         </div>
     )
