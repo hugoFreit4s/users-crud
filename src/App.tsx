@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import UserInput from './UserInput/UserInput';
 import CustomButton from './CustomButton/CustomButton';
-import UserDiv from './UserDiv/UserDiv';
+import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
 import { editUser, deleteUser } from './API';
 //tratativa de erro (por enquanto só no get)!!!!!

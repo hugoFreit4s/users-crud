@@ -13,6 +13,8 @@ type AllUsersListProps = {
 
 export default function AllUsersList({ closeModal, userList, deleteUser, editUser }: AllUsersListProps) {
     const [contentClassName, setContentClassName] = useState<string>("");
+    const [filteredUserList, setFilteredUserList] = useState<Array<User>>(userList);
+    const [searchedWord, setSearchedWord] = useState<string>("");
     useEffect(() => {
         if (userList.length <= 0) {
             setContentClassName(`${styles.content} ${styles["content-1"]}`)
@@ -29,14 +31,28 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
             <div className={contentClassName} onClick={e => e.stopPropagation()}>
                 <div className={styles["inner-content"]}>
                     <div><p>Users: {userList.length}</p></div>
-                    <SearchBar usersList={userList} />
-                    {userList.length > 0 ?
-                        userList.map(user => {
+                    <SearchBar
+                        usersList={userList}
+                        searchFunction={word => {
+                            setSearchedWord(word);
+                            setFilteredUserList(userList.filter(usertToShow => {
+                                return usertToShow.name.toLowerCase().includes(searchedWord.toLowerCase());
+                            }));
+                        }}
+                    />
+                    {userList.length <= 0 ?
+                        filteredUserList.map(user => {
                             return (
                                 <UserContainerInsideList
                                     user={user}
-                                    deleteUser={deleteUser}
-                                    editUser={editUser}
+                                    deleteUser={() => {
+                                        deleteUser(user.id);
+                                        setSearchedWord('');
+                                    }}
+                                    editUser={() => {
+                                        editUser(user);
+                                        setSearchedWord('');
+                                    }}
                                     key={user.id}
                                 />
                             );

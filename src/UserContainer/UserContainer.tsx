@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import UserInput from "../UserInput/UserInput";
-import CustomButton from "../CustomButton/CustomButton";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import { User } from "../App";
 import EditUserModal from "../EditUserModal/EditUserModal";
+import { useState } from "react";
 
 type UserDivProps = {
     user: User;
