@@ -2,6 +2,7 @@ import { User } from "../App";
 import styles from "./AllUsersList.module.css";
 import UserContainerInsideList from "../UserContainerInsideList/UserContainerInsideList";
 import { useEffect, useState } from "react";
+import SearchBar from "../SearchBar/SearchBar";
 
 type AllUsersListProps = {
     closeModal: () => void;
@@ -28,6 +29,7 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
             <div className={contentClassName} onClick={e => e.stopPropagation()}>
                 <div className={styles["inner-content"]}>
                     <div><p>Users: {userList.length}</p></div>
+                    <SearchBar usersList={userList} />
                     {userList.length > 0 ?
                         userList.map(user => {
                             return (
