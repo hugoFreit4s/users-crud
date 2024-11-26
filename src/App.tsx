@@ -6,6 +6,7 @@ import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
 import { insertUser, editUser, deleteUser } from './API';
 import AddUserModal from './AddUserModal/AddUserModal';
+import ToastMessage from './ToastMessage/ToastMessage';
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
@@ -16,6 +17,11 @@ function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
+  const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(isToastShowed)
+  }, [isToastShowed])
 
   async function callInsertUser(user: User) {
     const users = await insertUser(user);
@@ -40,12 +46,10 @@ function App() {
   return (
     <main>
       <div>
-        <UserInput
-          userName={userName!}
-          userAge={userAge!}
-          setUserName={(name) => setUserName(name)}
-          setUserAge={(age) => setUserAge(age.toString())}
-        />
+        {<ToastMessage
+          category="success"
+          message="Success!"
+        />}
         <CustomButton
           className="primary-btn"
           onClickEvent={() => setIsInsertUserModalOpened(!isInsertUserModalOpened)}
@@ -57,6 +61,10 @@ function App() {
             insertUser={(user) => {
               callInsertUser(user);
               setIsInsertUserModalOpened(!isInsertUserModalOpened);
+              setIsToastShowed(!isToastShowed);
+              setTimeout(() => {
+                setIsToastShowed(false);
+              }, 800);
             }}
           />}
         <CustomButton

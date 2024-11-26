@@ -1,0 +1,21 @@
+.backdrop {
+    position: fixed;
+    pointer-events: none;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 95vh;
+    width: 95vw;
+}
+
+.main-content {
+    font-weight: bold;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #28a745;
+    width: 200px;
+    height: 60px;
+}

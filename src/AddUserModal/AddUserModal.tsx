@@ -3,6 +3,7 @@ import UserInput from "../UserInput/UserInput"
 import styles from "./AddUserModal.module.css"
 import CustomButton from "../CustomButton/CustomButton";
 import { User } from "../App";
+import ToastMessage from "../ToastMessage/ToastMessage";
 
 type AddUserModalProps = {
     closeModal: () => void;
