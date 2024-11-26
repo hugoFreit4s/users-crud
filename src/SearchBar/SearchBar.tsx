@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react"
-import { User } from "../App"
-
 type SearchBarProps = {
-    usersList: Array<User>
     searchFunction: (searchedWord: string,) => void;
 }
-export default function SearchBar({ usersList, searchFunction }: SearchBarProps) {
-    const [filteredList, setFilteredList] = useState<Array<User>>([]);
+export default function SearchBar({ searchFunction }: SearchBarProps) {
     return (
         <div>
             <div>

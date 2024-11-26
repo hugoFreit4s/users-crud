@@ -18,7 +18,6 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
         setUserNameInput(user.name);
         setUserAgeInput(user.age.toString());
     }, [])
-
     return (
         < div className={style["backdrop"]} onClick={cancelEdit} >
             <div className={style["content"]} onClick={e => e.stopPropagation()}>

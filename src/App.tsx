@@ -34,7 +34,6 @@ function App() {
 
   async function callEditUser(user: User) {
     const users = await editUser(user);
-    console.log('ok')
     setUsersList(users);
   }
 
@@ -95,10 +94,7 @@ function App() {
           closeModal={() => setIsUserModalOpen(!isUserModalOpened)}
           userList={usersList}
           deleteUser={(id) => callDeleteUser(id)}
-          editUser={(user) => {
-            callEditUser(user)
-            console.log('ok')
-          }}
+          editUser={(user) => callEditUser(user)}
         />
       }
     </main>

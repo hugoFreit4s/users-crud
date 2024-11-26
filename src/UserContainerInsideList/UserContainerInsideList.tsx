@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../CustomButton/CustomButton"
 import styles from "./UserContainerInsideList.module.css"
 import { User } from "../App";
@@ -43,8 +43,8 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
                     <EditUserModal
                         cancelEdit={() => setIsEditing(!isEditing)}
                         onClickEvent={(userAgeInput, userNameInput) => {
-                            editUser({ ...user, age: +userAgeInput, name: userNameInput });
                             setIsEditing(!isEditing);
+                            editUser({ ...user, age: Number(userAgeInput), name: userNameInput })
                         }}
                         user={user}
                     />
