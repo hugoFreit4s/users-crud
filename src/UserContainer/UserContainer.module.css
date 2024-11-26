@@ -1,0 +1,8 @@
+.user-div{
+    width: 300px;
+    height: 120px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}

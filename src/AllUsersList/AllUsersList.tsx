@@ -27,7 +27,7 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
             <div style={{ display: "flex", justifyContent: "end", width: "100%", height: "auto", padding: "0px 50px 0px 10px" }}>
                 <div className={styles["close-modal-btn"]} onClick={() => closeModal()}>&#10005;</div>
             </div>
-            <div className={styles.content} onClick={e => e.stopPropagation()}>
+            <div className={styles[contentClassName]} onClick={e => e.stopPropagation()}>
                 <div className={styles["inner-content"]}>
                     <div><p>Users: {userList.length}</p></div>
                     <div style={{ marginBottom: "10px" }}>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-import UserInput from './UserInput/UserInput';
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';

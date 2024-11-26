@@ -2,6 +2,8 @@ import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import { User } from "../App";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import { useState } from "react";
+import style from "./UserContainer.module.css";
+import CustomButton from "../CustomButton/CustomButton";
 
 type UserDivProps = {
     user: User;
@@ -19,19 +21,27 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
     return (
-        <div>
+        <div className={style["user-div"]}>
             <p>{user.name}</p>
             <p>{user.age}</p>
-            <button onClick={() => setIsDeleting(!isDeleting)}>del</button>
+            <div className={style.buttons}>
+                <CustomButton
+                    className="danger-btn"
+                    onClickEvent={() => setIsDeleting(!isDeleting)}
+                    textContent="Delete user"
+                />
+                <CustomButton
+                    className="primary-btn"
+                    onClickEvent={() => setIsEditing(!isEditing)}
+                    textContent="&#9998;"
+                />
+            </div>
             {isDeleting && <DeleteUserModal
                 closeModal={() => setIsDeleting(!isDeleting)}
                 userName={user.name}
                 deleteUser={() => deleteUser(user.id)}
                 key={user.id}
             />}
-            <button onClick={() => {
-                setIsEditing(!isEditing);
-            }}>edt</button>
             {isEditing &&
                 <div>
                     <EditUserModal

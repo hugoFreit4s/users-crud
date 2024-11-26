@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CustomButton from "../CustomButton/CustomButton"
 import styles from "./UserContainerInsideList.module.css"
 import { User } from "../App";
