@@ -19,10 +19,6 @@ function App() {
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
   const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(isToastShowed)
-  }, [isToastShowed])
-
   async function callInsertUser(user: User) {
     const users = await insertUser(user);
     setUsersList(users);
@@ -46,7 +42,7 @@ function App() {
   return (
     <main>
       <div>
-        {<ToastMessage
+        {isToastShowed && <ToastMessage
           category="success"
           message="Success!"
         />}
