@@ -15,11 +15,10 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     return (
-        <div className={styles.userDiv} key={user.id}>
+        <div className={styles["user-div"]} key={user.id}>
             <div className={styles.top}>
                 <img src="" alt="" />
-                <p>{user.name}</p>
-                <p>{user.age}</p>
+                <p>{user.name}, {user.age}</p>
             </div>
             <div className={styles.bottom}>
                 <CustomButton

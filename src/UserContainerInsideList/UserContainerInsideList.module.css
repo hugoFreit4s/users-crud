@@ -1,4 +1,24 @@
-.bottom{
+.user-div {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 20px;
+    gap: 10px;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom {
+    display: flex;
+    justify-content: flex-end;
     gap: 20px;
+    padding: 0 10px 0 0;
 }
