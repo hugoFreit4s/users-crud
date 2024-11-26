@@ -6,6 +6,15 @@ export async function getUsers() {
     return res;
 }
 
+export async function insertUser(user: User) {
+    await fetch("http://localhost:8080/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
+    })
+    return await getUsers();
+}
+
 export async function editUser(user: User) {
     await fetch("http://localhost:8080/user",
         {

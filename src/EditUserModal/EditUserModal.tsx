@@ -19,7 +19,7 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
         setUserAgeInput(user.age.toString());
     }, [])
     return (
-        < div className={style["backdrop"]} onClick={cancelEdit} >
+        <div className={"backdrop"} onClick={cancelEdit} >
             <div className={style["content"]} onClick={e => e.stopPropagation()}>
                 <div className={style["top"]}>
                     <p><span style={{ color: "red" }}>Atention: You're editing {user.name} data.</span></p>

@@ -4,7 +4,8 @@ import UserInput from './UserInput/UserInput';
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
-import { editUser, deleteUser } from './API';
+import { insertUser, editUser, deleteUser } from './API';
+import AddUserModal from './AddUserModal/AddUserModal';
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
@@ -13,18 +14,12 @@ function App() {
   const [userName, setUserName] = useState<string>();
   const [userAge, setUserAge] = useState<string>();
   const [usersList, setUsersList] = useState<Array<User>>([]);
+  const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
 
-  async function insertUser(user: User) {
-    const data = await fetch("http://localhost:8080/user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user)
-    })
-    const res = await data.json();
-    setUsersList(prev => {
-      return [...prev, res]
-    });
+  async function callInsertUser(user: User) {
+    const users = await insertUser(user);
+    setUsersList(users);
   }
 
   async function callDeleteUser(ID: string) {
@@ -53,15 +48,17 @@ function App() {
         />
         <CustomButton
           className="primary-btn"
-          onClickEvent={() => {
-            if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
-              insertUser({ id: crypto.randomUUID(), name: userName, age: Number(userAge) })
-              setUserName('');
-              setUserAge('')
-            }
-          }}
-          textContent='Add User'
+          onClickEvent={() => setIsInsertUserModalOpened(!isInsertUserModalOpened)}
+          textContent='+ New User'
         />
+        {isInsertUserModalOpened &&
+          <AddUserModal
+            closeModal={() => setIsInsertUserModalOpened(!isInsertUserModalOpened)}
+            insertUser={(user) => {
+              callInsertUser(user);
+              setIsInsertUserModalOpened(!isInsertUserModalOpened);
+            }}
+          />}
         <CustomButton
           className="secondary-btn"
           onClickEvent={() => setIsUserModalOpen(!isUserModalOpened)}
