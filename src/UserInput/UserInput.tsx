@@ -35,17 +35,19 @@ export default function UserInput({
 }: UserInputProps) {
     return (
         <div className={style["inputs-div"]}>
-            <div className={style["single-input-div"]}>
-                <p>Name</p>
-                <input className={style["input-box"]} value={userName} type="text" onChange={e => setUserName(e.target.value)} />
-            </div>
-            <div className={style["single-input-div"]}>
-                <p>Age</p>
-                <input className={style["input-box"]} min={0} value={userAge} type="number" onChange={e => setUserAge(e.target.value)} />
-            </div>
-            <div className={style["single-input-div"]}>
-                <p>Phone</p>
-                <input className={style["input-box"]} value={userPhone} type="text" onChange={e => setUserPhone(e.target.value)} />
+            <div className={style["top-div"]}>
+                <div className={style["single-input-div"]}>
+                    <p>Name</p>
+                    <input className={style["input-box"]} value={userName} type="text" onChange={e => setUserName(e.target.value)} />
+                </div>
+                <div className={style["single-input-div"]}>
+                    <p>Age</p>
+                    <input className={style["input-box"]} min={0} value={userAge} type="number" onChange={e => setUserAge(e.target.value)} />
+                </div>
+                <div className={style["single-input-div"]}>
+                    <p>Phone</p>
+                    <input className={style["input-box"]} value={userPhone} type="text" onChange={e => setUserPhone(e.target.value)} />
+                </div>
             </div>
             <div className={style["address-input-div"]}>
                 <div className={style["street-input"]}>

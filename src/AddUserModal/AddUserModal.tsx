@@ -36,7 +36,7 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
                     setUserStreet={(street) => setUserStreet(street)}
                     setUserNeighborhood={(neighborhood) => setUserNeighborhood(neighborhood)}
                     setUserHouseNumber={(houseNumber) => setUserHouseNumber(houseNumber)}
-                    setUserCity={(city) => setUserPhone(city)}
+                    setUserCity={(city) => setUserCity(city)}
                 />
                 <div className={styles["bottom"]}>
                     <CustomButton

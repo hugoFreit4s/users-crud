@@ -14,3 +14,14 @@
     padding: 3px 10px 3px 10px;
     border-radius: 3px;
 }
+
+.address-input-div {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 20px;
+}
+
+.street-input,
+.neighborhood-input {
+    grid-row: 1;
+}
