@@ -12,8 +12,6 @@ type UserDivProps = {
     userAge: number;
     userID: string;
     deleteUser: (userID: string) => void;
-    setUserName: (name: string) => void; ///!!!!
-    setUserAge: (age: number) => void; ///!!!!
     onClickEvent: (user: User) => void;
 }
 

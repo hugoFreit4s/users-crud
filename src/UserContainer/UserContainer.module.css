@@ -6,6 +6,7 @@
     flex-direction: column;
     border: 1px solid black;
     justify-content: space-between;
+    border-radius: 3px;
 }
 
 .top{

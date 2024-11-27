@@ -9,10 +9,9 @@ import ToastMessage from './ToastMessage/ToastMessage';
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
-export type User = { id: string, name: string, age: number };
+export type Address = { street: string, neighborhood: string, houseNumber: number, city: string }
+export type User = { id: string, name: string, age: number, phone: string, address: Address };
 function App() {
-  const [userName, setUserName] = useState<string>();
-  const [userAge, setUserAge] = useState<string>();
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
@@ -77,8 +76,6 @@ function App() {
               userAge={user.age}
               userID={user.id}
               deleteUser={(id) => callDeleteUser(id)}
-              setUserName={(name) => setUserName(name)}
-              setUserAge={(age) => setUserAge(age.toString())}
               onClickEvent={(user) => {
                 callEditUser(user);
               }}

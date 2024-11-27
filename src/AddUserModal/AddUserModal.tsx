@@ -13,6 +13,11 @@ type AddUserModalProps = {
 export default function AddUserModal({ closeModal, insertUser }: AddUserModalProps) {
     const [userName, setUserName] = useState<string>();
     const [userAge, setUserAge] = useState<string>();
+    const [userPhone, setUserPhone] = useState<string>();
+    const [userStreet, setUserStreet] = useState<string>();
+    const [userNeighborhood, setUserNeighborhood] = useState<string>();
+    const [userHouseNumber, setUserHouseNumber] = useState<number>();
+    const [userCity, setUserCity] = useState<string>();
     return (
         <div className={"backdrop"} onClick={closeModal}>
             <div className={styles["content"]} onClick={e => e.stopPropagation()}>
@@ -20,15 +25,37 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
                 <UserInput
                     userName={userName!}
                     userAge={userAge!}
+                    userPhone={userPhone!}
+                    userStreet={userStreet!}
+                    userNeighborhood={userNeighborhood!}
+                    userHouseNumber={userHouseNumber!}
+                    userCity={userCity!}
                     setUserName={(name) => setUserName(name)}
                     setUserAge={(age) => setUserAge(age.toString())}
+                    setUserPhone={(phone) => setUserPhone(phone)}
+                    setUserStreet={(street) => setUserStreet(street)}
+                    setUserNeighborhood={(neighborhood) => setUserNeighborhood(neighborhood)}
+                    setUserHouseNumber={(houseNumber) => setUserHouseNumber(houseNumber)}
+                    setUserCity={(city) => setUserPhone(city)}
                 />
                 <div className={styles["bottom"]}>
                     <CustomButton
                         className="primary-btn"
                         onClickEvent={() => {
-                            if (userName !== undefined && userName !== null && userName?.length > 0 && userAge !== undefined) {
-                                insertUser({ id: crypto.randomUUID(), name: userName, age: Number(userAge) })
+                            if (userName !== undefined
+                                && userName !== null
+                                && userName?.length > 0
+                                && userAge !== undefined
+                                && userPhone !== undefined
+                                && userCity !== undefined
+                                && userHouseNumber !== undefined
+                                && userNeighborhood !== undefined
+                                && userStreet !== undefined) {
+                                insertUser({
+                                    id: crypto.randomUUID(), name: userName, age: Number(userAge), phone: userPhone, address: {
+                                        city: userCity, houseNumber: userHouseNumber, neighborhood: userNeighborhood, street: userStreet
+                                    }
+                                })
                                 setUserName('');
                                 setUserAge('')
                             }
