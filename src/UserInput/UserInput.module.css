@@ -1,0 +1,16 @@
+.inputs-div {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.single-input-div {
+    line-height: 0;
+}
+
+.input-box {
+    border: 1px solid black;
+    padding: 3px 10px 3px 10px;
+    border-radius: 3px;
+}

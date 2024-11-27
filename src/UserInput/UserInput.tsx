@@ -1,4 +1,4 @@
-import "./UserInput.css";
+import style from "./UserInput.module.css";
 
 type UserInputProps = {
     userName: string;
@@ -9,14 +9,14 @@ type UserInputProps = {
 
 export default function UserInput({ userName, setUserName, userAge, setUserAge }: UserInputProps) {
     return (
-        <div className="inputs-div">
-            <div className="single-input-div">
+        <div className={style["inputs-div"]}>
+            <div className={style["single-input-div"]}>
                 <p>Name</p>
-                <input value={userName} type="text" onChange={e => setUserName(e.target.value)} />
+                <input className={style["input-box"]} value={userName} type="text" onChange={e => setUserName(e.target.value)} />
             </div>
-            <div className="single-input-div">
+            <div className={style["single-input-div"]}>
                 <p>Age</p>
-                <input min={0} value={userAge} type="string" onChange={e => setUserAge(e.target.value)} />
+                <input className={style["input-box"]} min={0} value={userAge} type="string" onChange={e => setUserAge(e.target.value)} />
             </div>
         </div>
     )

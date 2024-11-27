@@ -40,7 +40,7 @@ function App() {
 
   return (
     <main>
-      <div>
+      <div className="edit-and-add-btns">
         {isToastShowed && <ToastMessage
           category="success"
           message="Success!"
@@ -68,26 +68,24 @@ function App() {
           textContent='See all users'
         />
       </div>
-      <div className="users-outside-container">
-        <div className="users">
-          {usersList.map(user => {
-            return (
-              <UserDiv
-                user={user}
-                userName={user.name}
-                userAge={user.age}
-                userID={user.id}
-                deleteUser={(id) => callDeleteUser(id)}
-                setUserName={(name) => setUserName(name)}
-                setUserAge={(age) => setUserAge(age.toString())}
-                onClickEvent={(user) => {
-                  callEditUser(user);
-                }}
-                key={user.id}
-              />
-            )
-          })}
-        </div>
+      <div className="users">
+        {usersList.map(user => {
+          return (
+            <UserDiv
+              user={user}
+              userName={user.name}
+              userAge={user.age}
+              userID={user.id}
+              deleteUser={(id) => callDeleteUser(id)}
+              setUserName={(name) => setUserName(name)}
+              setUserAge={(age) => setUserAge(age.toString())}
+              onClickEvent={(user) => {
+                callEditUser(user);
+              }}
+              key={user.id}
+            />
+          )
+        })}
       </div>
       {isUserModalOpened &&
         <AllUsersList

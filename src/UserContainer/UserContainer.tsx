@@ -4,6 +4,7 @@ import EditUserModal from "../EditUserModal/EditUserModal";
 import { useState } from "react";
 import style from "./UserContainer.module.css";
 import CustomButton from "../CustomButton/CustomButton";
+import profilepic from "../public/profile-pic.png";
 
 type UserDivProps = {
     user: User;
@@ -22,8 +23,10 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
 
     return (
         <div className={style["user-div"]}>
-            <p>{user.name}</p>
-            <p>{user.age}</p>
+            <div className={style.top}>
+                <img className={style["profile-picture"]} src={profilepic} />
+                <p>{user.name}, {user.age}</p>
+            </div>
             <div className={style.buttons}>
                 <CustomButton
                     className="danger-btn"

@@ -3,7 +3,11 @@ button {
     border-radius: 3px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+button:hover{
+    box-shadow: 0 0 30px gray;
 }
 
 .primary-btn {
