@@ -48,8 +48,8 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
                     <EditUserModal
                         user={user}
                         cancelEdit={() => setIsEditing(!isEditing)}
-                        onClickEvent={(userAgeInput, userNameInput) => {
-                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput })
+                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput, userAddressInput) => {
+                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput, phone: userPhoneInput, address: userAddressInput })
                             setIsEditing(!isEditing);
                         }}
                         key={user.id}

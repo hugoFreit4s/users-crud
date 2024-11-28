@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { User } from "../App";
+import { Address, User } from "../App";
 import CustomButton from "../CustomButton/CustomButton";
 import UserInput from "../UserInput/UserInput";
 import style from "./EditUserModal.module.css";
@@ -7,16 +7,25 @@ import style from "./EditUserModal.module.css";
 type EditUserModalProps = {
     user: User;
     cancelEdit: () => void;
-    onClickEvent: (userAgeInput: string, userNameInput: string) => void;
+    onClickEvent: (
+        userAgeInput: string,
+        userNameInput: string,
+        userPhoneInput: string,
+        userAddressInput: Address
+    ) => void;
 }
 
 export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUserModalProps) {
     const [userNameInput, setUserNameInput] = useState<string>('');
     const [userAgeInput, setUserAgeInput] = useState<string>('');
+    const [userPhoneInput, setUserPhoneInput] = useState<string>('');
+    const [userAddressInput, setUserAddressInput] = useState<Address>({ city: user.address.city, houseNumber: user.address.houseNumber, neighborhood: user.address.neighborhood, street: user.address.street })
 
     useEffect(() => {
         setUserNameInput(user.name);
         setUserAgeInput(user.age.toString());
+        setUserPhoneInput(user.phone);
+        setUserAddressInput(user.address)
     }, [])
     return (
         <div className={"backdrop"} onClick={cancelEdit} >
@@ -28,10 +37,14 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
                 </div>
                 <div className={style["mid"]}>
                     <UserInput
-                        setUserAge={setUserAgeInput}
-                        setUserName={setUserNameInput}
-                        userAge={userAgeInput}
-                        userName={userNameInput}
+                        setAge={setUserAgeInput}
+                        setName={setUserNameInput}
+                        setPhone={setUserPhoneInput}
+                        setAddress={setUserAddressInput}
+                        age={userAgeInput}
+                        name={userNameInput}
+                        phone={userPhoneInput}
+                        address={userAddressInput}
                     />
                 </div>
                 <div className={style["bottom"]}>
@@ -42,7 +55,7 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
                     />
                     <CustomButton
                         className="danger-btn"
-                        onClickEvent={() => onClickEvent(userAgeInput, userNameInput)}
+                        onClickEvent={() => onClickEvent(userAgeInput, userNameInput, userPhoneInput, userAddressInput)}
                         textContent="Confirm"
                         key={user.id}
                     />

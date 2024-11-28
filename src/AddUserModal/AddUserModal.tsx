@@ -23,16 +23,16 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
             <div className={styles["content"]} onClick={e => e.stopPropagation()}>
                 <div className={styles["top"]}></div>
                 <UserInput
-                    userName={userName!}
-                    userAge={userAge!}
-                    userPhone={userPhone!}
+                    name={userName!}
+                    age={userAge!}
+                    phone={userPhone!}
                     userStreet={userStreet!}
                     userNeighborhood={userNeighborhood!}
                     userHouseNumber={userHouseNumber!}
                     userCity={userCity!}
-                    setUserName={(name) => setUserName(name)}
-                    setUserAge={(age) => setUserAge(age.toString())}
-                    setUserPhone={(phone) => setUserPhone(phone)}
+                    setName={(name) => setUserName(name)}
+                    setAge={(age) => setUserAge(age.toString())}
+                    setPhone={(phone) => setUserPhone(phone)}
                     setUserStreet={(street) => setUserStreet(street)}
                     setUserNeighborhood={(neighborhood) => setUserNeighborhood(neighborhood)}
                     setUserHouseNumber={(houseNumber) => setUserHouseNumber(houseNumber)}
