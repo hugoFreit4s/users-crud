@@ -3,7 +3,7 @@ import './App.css'
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
-import { insertUser, editUser, deleteUser } from './API';
+import { insertUser, editUser, deleteUser, getUsers } from './API';
 import AddUserModal from './AddUserModal/AddUserModal';
 import ToastMessage from './ToastMessage/ToastMessage';
 //tratativa de erro (por enquanto só no get)!!!!!
@@ -32,9 +32,20 @@ function App() {
     setUsersList(users);
   }
 
+  async function callGetUsers() {
+    return await getUsers();
+  }
+
   useEffect(() => {
-    setUsersList([]);
-    fetch("http://localhost:8080/user").then(data => data.json()).then(res => setUsersList(res));
+    const fetchUsers = async () => {
+      try {
+        const usersArray = await callGetUsers();
+        setUsersList(usersArray);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchUsers();
   }, []);
 
   return (
