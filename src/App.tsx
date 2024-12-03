@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import './App.css'
 import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
 import { insertUser, editUser, deleteUser, getUsers } from './API';
 import AddUserModal from './AddUserModal/AddUserModal';
 import ToastMessage from './ToastMessage/ToastMessage';
+import style from "./App.module.css";
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
@@ -40,7 +40,6 @@ function App() {
       try {
         const usersArray = await callGetUsers();
         setUsersList(usersArray);
-        console.log(usersList.length)
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +49,7 @@ function App() {
 
   return (
     <main>
-      <div className="edit-and-add-btns">
+      <div className={style["edit-and-add-btns"]}>
         {isToastShowed && <ToastMessage
           category="success"
           message="Success!"
@@ -78,7 +77,7 @@ function App() {
           textContent='See all users'
         />
       </div>
-      <div className="users">
+      <div className={style["users"]}>
         {usersList.length > 0 && usersList.map(user => {
           return (
             <UserDiv

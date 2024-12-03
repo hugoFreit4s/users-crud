@@ -9,7 +9,7 @@ type DeleteUserModalProps = {
 
 export default function DeleteUserModal({ closeModal, userName, deleteUser }: DeleteUserModalProps) {
     return (
-        <div className="backdrop" onClick={closeModal}>
+        <div className={styles["backdrop"]} onClick={closeModal}>
             <div className={styles.content} onClick={e => e.stopPropagation()}>
                 <div className={styles.top}>
                     <p><strong>Do you really wanna delete {userName}?</strong></p>

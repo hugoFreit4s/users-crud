@@ -7,7 +7,7 @@ import EditUserModal from "../EditUserModal/EditUserModal";
 
 type UserContainerInsideListProps = {
     user: User;
-    deleteUser: (userID: string) => void;
+    deleteUser: (userID: number) => void;
     editUser: (user: User) => void;
 }
 

@@ -14,7 +14,7 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
     const [userAge, setUserAge] = useState<string>();
     const [userPhone, setUserPhone] = useState<string>();
     return (
-        <div className={"backdrop"} onClick={closeModal}>
+        <div className={styles["backdrop"]} onClick={closeModal}>
             <div className={styles["content"]} onClick={e => e.stopPropagation()}>
                 <div className={styles["top"]}></div>
                 <UserInput
