@@ -1,6 +1,7 @@
-.user-div{
+.user-div {
     width: 300px;
-    height: 120px;
+    max-width: 300px;
+    height: 170px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -10,17 +11,26 @@
     background-color: #FFFFFF;
 }
 
-.top{
+.name {
+    width: 100%;
+    max-width: 100%;
+    word-break: break-all;
+    text-align: center;
+}
+
+.top {
     display: flex;
-    justify-content: space-evenly;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
 }
 
-.profile-picture{
+.profile-picture {
+    align-self: flex-start;
     height: 60px;
 }
 
-.buttons{
+.buttons {
     display: flex;
     gap: 20px;
     justify-content: end;
