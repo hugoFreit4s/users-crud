@@ -1,3 +1,7 @@
+body{
+    background-color: #dfdede;
+}
+
 main {
     display: flex;
     flex-direction: column;

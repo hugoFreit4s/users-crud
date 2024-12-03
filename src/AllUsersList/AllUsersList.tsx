@@ -16,9 +16,9 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
     const [filteredUserList, setFilteredUserList] = useState<Array<User>>(userList);
     useEffect(() => {
         if (userList.length <= 0) {
-            setContentClassName(`${styles.content} ${styles["content-1"]}`)
+            setContentClassName(`${styles.emptyContent}`)
         } else {
-            setContentClassName(styles.content)
+            setContentClassName(`${styles.content}`)
         }
         setFilteredUserList(userList);
     }, [userList])
@@ -28,7 +28,7 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
                 <div className={styles["close-modal-btn"]} onClick={() => closeModal()}>&#10005;</div>
             </div>
             <div className={styles["content"]} onClick={e => e.stopPropagation()}>
-                <div className={styles[contentClassName]}>
+                <div className={`${styles[contentClassName]} ${styles["inner-content"]}`}>
                     <div><p>Users: {userList.length}</p></div>
                     <div style={{ marginBottom: "10px" }}>
                         <SearchBar
@@ -40,16 +40,19 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
                         />
                     </div>
                     {filteredUserList.length > 0 ?
-                        filteredUserList.map(user => {
-                            return (
-                                <UserContainerInsideList
-                                    user={user}
-                                    deleteUser={() => deleteUser(user.id)}
-                                    key={user.id}
-                                    editUser={(userToEdit) => editUser(userToEdit)}
-                                />
-                            );
-                        }) : <p>Empty</p>}
+                        <div className={styles["users-containers"]}>
+                            {filteredUserList.map(user => {
+                                return (
+                                    <UserContainerInsideList
+                                        user={user}
+                                        deleteUser={() => deleteUser(user.id)}
+                                        key={user.id}
+                                        editUser={(userToEdit) => editUser(userToEdit)}
+                                    />
+                                );
+                            })}
+                        </div> : <p>No users</p>
+                    }
                 </div>
             </div>
         </div>

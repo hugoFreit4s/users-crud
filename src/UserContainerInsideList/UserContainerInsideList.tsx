@@ -4,6 +4,7 @@ import styles from "./UserContainerInsideList.module.css"
 import { User } from "../App";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
+import profilepic from "../public/profile-pic.png";
 
 type UserContainerInsideListProps = {
     user: User;
@@ -17,8 +18,10 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
     return (
         <div className={styles["user-div"]} key={user.id}>
             <div className={styles.top}>
-                <img src="" alt="" />
-                <p>{user.name}, {user.age}</p>
+                <img className={styles["profile-picture"]} src={profilepic} />
+                <div>{user.name}</div>
+                <div>{user.age} years</div>
+                <div>&#x1F4DE; {user.phone}</div>
             </div>
             <div className={styles.bottom}>
                 <CustomButton
@@ -41,9 +44,9 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
                 {isEditing &&
                     <EditUserModal
                         cancelEdit={() => setIsEditing(!isEditing)}
-                        onClickEvent={(userAgeInput, userNameInput) => {
+                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput) => {
                             setIsEditing(!isEditing);
-                            editUser({ ...user, age: Number(userAgeInput), name: userNameInput })
+                            editUser({ ...user, age: Number(userAgeInput), name: userNameInput, phone: userPhoneInput })
                         }}
                         user={user}
                     />
