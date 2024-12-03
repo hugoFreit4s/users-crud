@@ -9,20 +9,27 @@
     justify-content: space-between;
     border-radius: 6px;
     background-color: #FFFFFF;
+    user-select: none;
+}
+
+.user-div-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .name {
     width: 100%;
     max-width: 100%;
-    word-break: break-all;
     text-align: center;
 }
 
 .top {
     display: flex;
     width: 100%;
-    justify-content: space-between;
     align-items: center;
+    overflow: auto;
 }
 
 .profile-picture {

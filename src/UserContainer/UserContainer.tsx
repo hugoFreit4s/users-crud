@@ -21,24 +21,26 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
 
     return (
         <div className={style["user-div"]}>
-            <div className={style.top}>
-                <img className={style["profile-picture"]} src={profilepic} />
-                <div style={{display:"flex", flexDirection:"column", width: "100%", lineHeight:"10px"}}>
-                    <p className={style["name"]}>{user.name}</p>
-                    <p className={style["name"]}>Age: {user.age} years</p>
+            <div className={style["user-div-inner"]}>
+                <div className={style.top}>
+                    <img className={style["profile-picture"]} src={profilepic} />
+                    <div style={{ display: "flex", flexDirection: "column", width: "100%", lineHeight: "10px" }}>
+                        <p className={style["name"]}>{user.name}</p>
+                        <p className={style["name"]}>Age: {user.age} years</p>
+                    </div>
                 </div>
-            </div>
-            <div className={style.buttons}>
-                <CustomButton
-                    className="danger-btn"
-                    onClickEvent={() => setIsDeleting(!isDeleting)}
-                    textContent="Delete user"
-                />
-                <CustomButton
-                    className="primary-btn"
-                    onClickEvent={() => setIsEditing(!isEditing)}
-                    textContent="&#9998;"
-                />
+                <div className={style.buttons}>
+                    <CustomButton
+                        className="danger-btn"
+                        onClickEvent={() => setIsDeleting(!isDeleting)}
+                        textContent="Delete user"
+                    />
+                    <CustomButton
+                        className="primary-btn"
+                        onClickEvent={() => setIsEditing(!isEditing)}
+                        textContent="&#9998;"
+                    />
+                </div>
             </div>
             {isDeleting && <DeleteUserModal
                 closeModal={() => setIsDeleting(!isDeleting)}

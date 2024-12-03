@@ -13,9 +13,10 @@
 
 .content {
     background-color: white;
-    height: 200px;
+    height: 230px;
     width: 300px;
     border: 1px solid gray;
+    border-radius: 6px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -24,6 +25,8 @@
 
 .top {
     line-height: 20px;
+    line-break: anywhere;
+    overflow: auto;
 }
 
 .bottom {
