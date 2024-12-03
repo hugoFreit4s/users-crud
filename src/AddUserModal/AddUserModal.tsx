@@ -3,7 +3,6 @@ import UserInput from "../UserInput/UserInput"
 import styles from "./AddUserModal.module.css"
 import CustomButton from "../CustomButton/CustomButton";
 import { User } from "../App";
-import ToastMessage from "../ToastMessage/ToastMessage";
 
 type AddUserModalProps = {
     closeModal: () => void;
@@ -14,10 +13,6 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
     const [userName, setUserName] = useState<string>();
     const [userAge, setUserAge] = useState<string>();
     const [userPhone, setUserPhone] = useState<string>();
-    const [userStreet, setUserStreet] = useState<string>();
-    const [userNeighborhood, setUserNeighborhood] = useState<string>();
-    const [userHouseNumber, setUserHouseNumber] = useState<number>();
-    const [userCity, setUserCity] = useState<string>();
     return (
         <div className={"backdrop"} onClick={closeModal}>
             <div className={styles["content"]} onClick={e => e.stopPropagation()}>
@@ -26,17 +21,9 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
                     name={userName!}
                     age={userAge!}
                     phone={userPhone!}
-                    userStreet={userStreet!}
-                    userNeighborhood={userNeighborhood!}
-                    userHouseNumber={userHouseNumber!}
-                    userCity={userCity!}
                     setName={(name) => setUserName(name)}
                     setAge={(age) => setUserAge(age.toString())}
                     setPhone={(phone) => setUserPhone(phone)}
-                    setUserStreet={(street) => setUserStreet(street)}
-                    setUserNeighborhood={(neighborhood) => setUserNeighborhood(neighborhood)}
-                    setUserHouseNumber={(houseNumber) => setUserHouseNumber(houseNumber)}
-                    setUserCity={(city) => setUserCity(city)}
                 />
                 <div className={styles["bottom"]}>
                     <CustomButton
@@ -46,16 +33,8 @@ export default function AddUserModal({ closeModal, insertUser }: AddUserModalPro
                                 && userName !== null
                                 && userName?.length > 0
                                 && userAge !== undefined
-                                && userPhone !== undefined
-                                && userCity !== undefined
-                                && userHouseNumber !== undefined
-                                && userNeighborhood !== undefined
-                                && userStreet !== undefined) {
-                                insertUser({
-                                    id: crypto.randomUUID(), name: userName, age: Number(userAge), phone: userPhone, address: {
-                                        city: userCity, houseNumber: userHouseNumber, neighborhood: userNeighborhood, street: userStreet
-                                    }
-                                })
+                                && userPhone !== undefined) {
+                                insertUser({ id: 0, name: userName, age: Number(userAge), phone: userPhone })
                                 setUserName('');
                                 setUserAge('')
                             }

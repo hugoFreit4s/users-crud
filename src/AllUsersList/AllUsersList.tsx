@@ -7,7 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 type AllUsersListProps = {
     closeModal: () => void;
     userList: Array<User>;
-    deleteUser: (userID: string) => void;
+    deleteUser: (userID: number) => void;
     editUser: (user: User) => void;
 };
 

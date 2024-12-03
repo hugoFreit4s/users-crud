@@ -9,21 +9,19 @@ import ToastMessage from './ToastMessage/ToastMessage';
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
-export type Address = { street: string, neighborhood: string, houseNumber: number, city: string }
-export type User = { id: string, name: string, age: number, phone: string, address: Address };
+export type User = { id: number, name: string, age: number, phone: string };
 function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
   const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
 
-  async function callInsertUser(user: User) {
-    const users = await insertUser(user);
-    setUsersList(users);
+  async function callGetUsers() {
+    return await getUsers();
   }
 
-  async function callDeleteUser(ID: string) {
-    const users = await deleteUser(ID);
+  async function callInsertUser(user: User) {
+    const users = await insertUser(user);
     setUsersList(users);
   }
 
@@ -32,8 +30,9 @@ function App() {
     setUsersList(users);
   }
 
-  async function callGetUsers() {
-    return await getUsers();
+  async function callDeleteUser(id: number) {
+    const users = await deleteUser(id);
+    setUsersList(users);
   }
 
   useEffect(() => {
@@ -41,6 +40,7 @@ function App() {
       try {
         const usersArray = await callGetUsers();
         setUsersList(usersArray);
+        console.log(usersList.length)
       } catch (error) {
         console.log(error);
       }
@@ -79,7 +79,7 @@ function App() {
         />
       </div>
       <div className="users">
-        {usersList.map(user => {
+        {usersList.length > 0 && usersList.map(user => {
           return (
             <UserDiv
               user={user}
@@ -94,6 +94,7 @@ function App() {
             />
           )
         })}
+        {usersList.length <= 0 && <p>Empty</p>}
       </div>
       {isUserModalOpened &&
         <AllUsersList

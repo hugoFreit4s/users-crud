@@ -10,8 +10,8 @@ type UserDivProps = {
     user: User;
     userName: string;
     userAge: number;
-    userID: string;
-    deleteUser: (userID: string) => void;
+    userID: number;
+    deleteUser: (userID: number) => void;
     onClickEvent: (user: User) => void;
 }
 
@@ -48,8 +48,8 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
                     <EditUserModal
                         user={user}
                         cancelEdit={() => setIsEditing(!isEditing)}
-                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput, userAddressInput) => {
-                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput, phone: userPhoneInput, address: userAddressInput })
+                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput) => {
+                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput, phone: userPhoneInput })
                             setIsEditing(!isEditing);
                         }}
                         key={user.id}
