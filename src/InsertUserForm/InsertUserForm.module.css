@@ -34,3 +34,10 @@
 .show-error{
     color: red;
 }
+
+.bottom-div{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    gap: 20px;
+}

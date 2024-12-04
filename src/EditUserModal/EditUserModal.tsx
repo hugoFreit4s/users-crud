@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../App";
-import CustomButton from "../CustomButton/CustomButton";
-import InsertUserInput from "../InsertUserForm/InsertUserForm";
 import style from "./EditUserModal.module.css";
+import EditUserForm from "../EditUserForm/EditUserForm";
 
 type EditUserModalProps = {
     user: User;
@@ -33,27 +32,18 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
                     <p>This can't be undone</p>
                 </div>
                 <div className={style["mid"]}>
-                    <InsertUserInput
+                    <EditUserForm
                         setAge={setUserAgeInput}
                         setName={setUserNameInput}
                         setPhone={setUserPhoneInput}
                         age={userAgeInput}
                         name={userNameInput}
                         phone={userPhoneInput}
+                        cancelEdit={cancelEdit}
+                        onClickEvent={onClickEvent}
                     />
                 </div>
                 <div className={style["bottom"]}>
-                    <CustomButton
-                        className="secondary-btn"
-                        onClickEvent={cancelEdit}
-                        textContent="Cancel"
-                    />
-                    <CustomButton
-                        className="danger-btn"
-                        onClickEvent={() => onClickEvent(userAgeInput, userNameInput, userPhoneInput)}
-                        textContent="Confirm"
-                        key={user.id}
-                    />
                 </div>
             </div>
         </div >)
