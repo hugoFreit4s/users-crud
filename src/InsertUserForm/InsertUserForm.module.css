@@ -1,12 +1,13 @@
 .inputs-div {
-    gap: 20px;
     display: flex;
     flex-direction: column;
-    gap: 0px;
+    align-items: center;
+    gap: 50px;
 }
 
 .single-input-div {
-    line-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-box {
@@ -24,4 +25,12 @@
 .street-input,
 .neighborhood-input {
     grid-row: 1;
+}
+
+.hide-error {
+    visibility: hidden;
+}
+
+.show-error{
+    color: red;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../App";
 import CustomButton from "../CustomButton/CustomButton";
-import UserInput from "../UserInput/UserInput";
+import InsertUserInput from "../InsertUserForm/InsertUserForm";
 import style from "./EditUserModal.module.css";
 
 type EditUserModalProps = {
@@ -33,7 +33,7 @@ export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUs
                     <p>This can't be undone</p>
                 </div>
                 <div className={style["mid"]}>
-                    <UserInput
+                    <InsertUserInput
                         setAge={setUserAgeInput}
                         setName={setUserNameInput}
                         setPhone={setUserPhoneInput}
