@@ -45,7 +45,7 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
             {isDeleting && <DeleteUserModal
                 closeModal={() => setIsDeleting(!isDeleting)}
                 userName={user.name}
-                deleteUser={() => deleteUser(user.id)}
+                deleteUser={() => deleteUser(user.id!)}
                 key={user.id}
             />}
             {isEditing &&

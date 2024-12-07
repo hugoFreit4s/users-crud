@@ -32,7 +32,7 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
                 {isDeleting &&
                     <DeleteUserModal
                         closeModal={() => setIsDeleting(!isDeleting)}
-                        deleteUser={() => deleteUser(user.id)}
+                        deleteUser={() => deleteUser(user.id!)}
                         userName={user.name}
                         key={user.id}
                     />}

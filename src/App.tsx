@@ -9,7 +9,7 @@ import style from "./App.module.css";
 //tratativa de erro (por enquanto só no get)!!!!!
 //pesquisar como acessar o status code -- DONE
 //descobrir qd o back me retorna um erro
-export type User = { id: number, name: string, age: number, phone: string };
+export type User = { id: number | null, name: string, age: number, phone: string };
 function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
@@ -84,8 +84,8 @@ function App() {
               user={user}
               userName={user.name}
               userAge={user.age}
-              userID={user.id}
-              deleteUser={(id) => callDeleteUser(id)}
+              userID={user.id!}
+              deleteUser={(id) => callDeleteUser(id!)}
               onClickEvent={(user) => {
                 callEditUser(user);
               }}

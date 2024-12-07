@@ -70,7 +70,7 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
                     className="primary-btn"
                     onClickEvent={() => {
                         if (!phoneError && !nameError && !ageError) {
-                            insertUser({ id: 0, name: name!, age: Number(age), phone: phone! })
+                            insertUser({ id: null, name: name!, age: Number(age), phone: phone! })
                             setName('');
                             setAge('');
                         }
