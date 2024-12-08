@@ -49,7 +49,7 @@ export default function EditUserForm({ name, setName, age, setAge, phone, setPho
         if (phone !== undefined && phone.length > 11) {
             setPhone(phone.slice(0, 11));
         }
-    }, [name, age, phone]);
+    }, [name, age, phone]); //TODO: Separar em 3 useEffects
 
     return (
         <div className={style["inputs-div"]}>

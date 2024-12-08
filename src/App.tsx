@@ -15,14 +15,27 @@ function App() {
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
   const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
+  //TODO: Criar objeto toast
+  //TODO: Pesquisar sobre TODO na hora do commit
 
   async function callGetUsers() {
     return await getUsers();
   }
 
   async function callInsertUser(user: User) {
-    const users = await insertUser(user);
-    setUsersList(users);
+    try {
+      const users = await insertUser(user);
+      setUsersList(users);
+      setIsToastShowed(!isToastShowed);
+      setTimeout(() => {
+        setIsToastShowed(false);
+      }, 800);
+    } catch (e) {
+      setIsToastShowed(!isToastShowed);
+      setTimeout(() => {
+        setIsToastShowed(false);
+      }, 800);
+    }
   }
 
   async function callEditUser(user: User) {
@@ -65,10 +78,6 @@ function App() {
             insertUser={(user) => {
               callInsertUser(user);
               setIsInsertUserModalOpened(!isInsertUserModalOpened);
-              setIsToastShowed(!isToastShowed);
-              setTimeout(() => {
-                setIsToastShowed(false);
-              }, 800);
             }}
           />}
         <CustomButton
