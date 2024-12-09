@@ -7,12 +7,29 @@ export async function getUsers() {
 }
 
 export async function insertUser(user: User) {
-    await fetch("http://localhost:8080/user", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
-    });
-    return await getUsers();
+    let toastMessage = '';
+    let toastCategory = '';
+    let users;
+    try {
+        await fetch("http://localhost:8080/user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+        toastMessage = "User added!";
+        toastCategory = "success";
+        users = await getUsers();
+    } catch (error) {
+        toastMessage = "Operation Failed!";
+        toastCategory = "fail";
+        users = null;
+    }
+    const responseDTO = {
+        users: users,
+        toastMessage: toastMessage,
+        toastCategory: toastCategory
+    }
+    return responseDTO;
 }
 
 export async function editUser(user: User) {

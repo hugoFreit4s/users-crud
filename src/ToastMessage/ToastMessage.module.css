@@ -9,13 +9,21 @@
 }
 
 .main-content {
-    font-weight: bold;
-    border-radius: 8px;
+    font-weight: 300;
+    border-radius: 6px;
+    border: 2px solid #c4c4c4;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    background-color: #28a745;
-    width: 200px;
-    height: 60px;
+    width: 230px;
+    height: 70px;
+}
+
+.success {
+    background-color: #088a26;
+}
+
+.fail {
+    background-color: #DC3545;
 }

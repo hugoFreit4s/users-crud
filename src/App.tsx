@@ -6,16 +6,14 @@ import { insertUser, editUser, deleteUser, getUsers } from './API';
 import AddUserModal from './AddUserModal/AddUserModal';
 import ToastMessage from './ToastMessage/ToastMessage';
 import style from "./App.module.css";
-//tratativa de erro (por enquanto só no get)!!!!!
-//pesquisar como acessar o status code -- DONE
-//descobrir qd o back me retorna um erro
 export type User = { id: number | null, name: string, age: number, phone: string };
+type ToastState = { message: string, isShown: boolean, category: "fail" | "success" | "alert" | string }
 function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
   const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
-  //TODO: Criar objeto toast
+  const [toastState, setToastState] = useState<ToastState>({ message: "", category: "", isShown: false });
   //TODO: Pesquisar sobre TODO na hora do commit
 
   async function callGetUsers() {
@@ -23,19 +21,12 @@ function App() {
   }
 
   async function callInsertUser(user: User) {
-    try {
-      const users = await insertUser(user);
-      setUsersList(users);
-      setIsToastShowed(!isToastShowed);
-      setTimeout(() => {
-        setIsToastShowed(false);
-      }, 800);
-    } catch (e) {
-      setIsToastShowed(!isToastShowed);
-      setTimeout(() => {
-        setIsToastShowed(false);
-      }, 800);
-    }
+    const responseDTO = await insertUser(user);
+    setUsersList(responseDTO.users !== null ? responseDTO.users : usersList);
+    setToastState({ message: responseDTO.toastMessage, category: responseDTO.toastCategory, isShown: true })
+    setTimeout(() => {
+      setToastState({ ...toastState, isShown: false });
+    }, 800);
   }
 
   async function callEditUser(user: User) {
@@ -63,9 +54,9 @@ function App() {
   return (
     <main>
       <div className={style["edit-and-add-btns"]}>
-        {isToastShowed && <ToastMessage
-          category="success"
-          message="Success!"
+        {toastState?.isShown && <ToastMessage
+          category={toastState.category}
+          message={toastState.message}
         />}
         <CustomButton
           className="primary-btn"
