@@ -27,6 +27,9 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
             setNameErrorClass("hide-error");
             setNameError(false);
         }
+    }, [name])
+
+    useEffect(() => {
         if (age !== undefined && (Number(age) <= 0 && age.length > 0)) {
             setAgeErrorClass("show-error");
             setAgeError(true);
@@ -34,6 +37,9 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
             setAgeErrorClass("hide-error");
             setAgeError(false);
         }
+    }, [age])
+
+    useEffect(() => {
         if (phone !== undefined && phone.length !== 11) {
             setPhoneErrorClass("show-error")
             setPhoneError(true);
@@ -41,10 +47,7 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
             setPhoneErrorClass("hide-error")
             setPhoneError(false);
         }
-        if (phone !== undefined && phone.length > 11) {
-            setPhone(phone.slice(0, 11));
-        }
-    }, [name, age, phone]);
+    }, [phone])
 
     return (
         <div className={style["inputs-div"]}>
@@ -61,7 +64,7 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
                 </div>
                 <div className={style["single-input-div"]}>
                     <p>Phone</p>
-                    <input className={style["input-box"]} value={phone} type="text" onChange={e => setPhone(e.target.value)} />
+                    <input className={style["input-box"]} value={phone} type="text" maxLength={11} onChange={e => setPhone(e.target.value)} />
                     <span className={style[phoneErrorClass]}>Phone must be 11 characters</span>
                 </div>
             </div>

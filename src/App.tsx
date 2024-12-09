@@ -12,7 +12,6 @@ function App() {
   const [usersList, setUsersList] = useState<Array<User>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
-  const [isToastShowed, setIsToastShowed] = useState<boolean>(false);
   const [toastState, setToastState] = useState<ToastState>({ message: "", category: "", isShown: false });
   //TODO: Pesquisar sobre TODO na hora do commit
 
