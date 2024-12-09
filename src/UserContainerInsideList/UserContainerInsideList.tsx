@@ -1,18 +1,19 @@
 import { useState } from "react";
 import CustomButton from "../CustomButton/CustomButton"
 import styles from "./UserContainerInsideList.module.css"
-import { User } from "../App";
+import { getUserDTO, postUserDTO } from "../App";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import profilepic from "../public/profile-pic.png";
 
 type UserContainerInsideListProps = {
-    user: User;
+    user: getUserDTO;
+    postUser: postUserDTO;
     deleteUser: (userID: number) => void;
-    editUser: (user: User) => void;
+    editUser: (user: postUserDTO) => void;
 }
 
-export default function UserContainerInsideList({ user, deleteUser, editUser }: UserContainerInsideListProps) {
+export default function UserContainerInsideList({ user, postUser, deleteUser, editUser }: UserContainerInsideListProps) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     return (
@@ -43,12 +44,12 @@ export default function UserContainerInsideList({ user, deleteUser, editUser }: 
                 />
                 {isEditing &&
                     <EditUserModal
+                        postUser={postUser}
                         cancelEdit={() => setIsEditing(!isEditing)}
-                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput) => {
+                        onClickEvent={(userBirthInput, userNameInput, userPhoneInput) => {
                             setIsEditing(!isEditing);
-                            editUser({ ...user, age: Number(userAgeInput), name: userNameInput, phone: userPhoneInput })
+                            editUser({ ...postUser, birthDate: new Date(userBirthInput), name: userNameInput, phone: userPhoneInput })
                         }}
-                        user={user}
                     />
                 }
             </div>

@@ -1,5 +1,5 @@
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
-import { User } from "../App";
+import { getUserDTO, postUserDTO } from "../App";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import { useState } from "react";
 import style from "./UserContainer.module.css";
@@ -7,15 +7,16 @@ import CustomButton from "../CustomButton/CustomButton";
 import profilepic from "../public/profile-pic.png";
 
 type UserDivProps = {
-    user: User;
+    user: getUserDTO;
+    postUser: postUserDTO;
     userName: string;
     userAge: number;
     userID: number;
     deleteUser: (userID: number) => void;
-    onClickEvent: (user: User) => void;
+    onClickEvent: (user: postUserDTO) => void;
 }
 
-export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps) {
+export default function UserDiv({ user, postUser, deleteUser, onClickEvent }: UserDivProps) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
@@ -51,10 +52,10 @@ export default function UserDiv({ user, deleteUser, onClickEvent }: UserDivProps
             {isEditing &&
                 <div>
                     <EditUserModal
-                        user={user}
+                        postUser={postUser}
                         cancelEdit={() => setIsEditing(!isEditing)}
-                        onClickEvent={(userAgeInput, userNameInput, userPhoneInput) => {
-                            onClickEvent({ ...user, age: +userAgeInput, name: userNameInput, phone: userPhoneInput })
+                        onClickEvent={(userBirthInput, userNameInput, userPhoneInput) => {
+                            onClickEvent({ ...user, birthDate: new Date(userBirthInput), name: userNameInput, phone: userPhoneInput })
                             setIsEditing(!isEditing);
                         }}
                         key={user.id}

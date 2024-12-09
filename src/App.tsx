@@ -6,10 +6,13 @@ import { insertUser, editUser, deleteUser, getUsers } from './API';
 import AddUserModal from './AddUserModal/AddUserModal';
 import ToastMessage from './ToastMessage/ToastMessage';
 import style from "./App.module.css";
-export type User = { id: number | null, name: string, age: number, phone: string };
+
+export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | null, phone: string };
+export type getUserDTO = { id: number, name: string, gender: string, phone: string, age: number };
 type ToastState = { message: string, isShown: boolean, category: "fail" | "success" | "alert" | string }
 function App() {
-  const [usersList, setUsersList] = useState<Array<User>>([]);
+
+  const [usersList, setUsersList] = useState<Array<getUserDTO>>([]);
   const [isInsertUserModalOpened, setIsInsertUserModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
   const [toastState, setToastState] = useState<ToastState>({ message: "", category: "", isShown: false });
@@ -19,7 +22,7 @@ function App() {
     return await getUsers();
   }
 
-  async function callInsertUser(user: User) {
+  async function callInsertUser(user: postUserDTO) {
     const responseDTO = await insertUser(user);
     setUsersList(responseDTO.users !== null ? responseDTO.users : usersList);
     setToastState({ message: responseDTO.toastMessage, category: responseDTO.toastCategory, isShown: true })
@@ -28,7 +31,7 @@ function App() {
     }, 800);
   }
 
-  async function callEditUser(user: User) {
+  async function callEditUser(user: postUserDTO) {
     const users = await editUser(user);
     setUsersList(users);
   }
@@ -81,9 +84,10 @@ function App() {
           return (
             <UserDiv
               user={user}
+              postUser={{ birthDate: null, gender: user.gender, id: user.id, name: user.name, phone: user.phone }}
               userName={user.name}
               userAge={user.age}
-              userID={user.id!}
+              userID={user.id}
               deleteUser={(id) => callDeleteUser(id!)}
               onClickEvent={(user) => {
                 callEditUser(user);

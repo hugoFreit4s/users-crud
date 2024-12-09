@@ -1,4 +1,4 @@
-import { User } from "../App";
+import { getUserDTO, postUserDTO } from "../App";
 import styles from "./AllUsersList.module.css";
 import UserContainerInsideList from "../UserContainerInsideList/UserContainerInsideList";
 import { useEffect, useState } from "react";
@@ -6,14 +6,14 @@ import SearchBar from "../SearchBar/SearchBar";
 
 type AllUsersListProps = {
     closeModal: () => void;
-    userList: Array<User>;
+    userList: Array<getUserDTO>;
     deleteUser: (userID: number) => void;
-    editUser: (user: User) => void;
+    editUser: (user: postUserDTO) => void;
 };
 
 export default function AllUsersList({ closeModal, userList, deleteUser, editUser }: AllUsersListProps) {
     const [contentClassName, setContentClassName] = useState<string>("");
-    const [filteredUserList, setFilteredUserList] = useState<Array<User>>(userList);
+    const [filteredUserList, setFilteredUserList] = useState<Array<getUserDTO>>(userList);
     useEffect(() => {
         if (userList.length <= 0) {
             setContentClassName(`${styles.emptyContent}`)
@@ -45,6 +45,7 @@ export default function AllUsersList({ closeModal, userList, deleteUser, editUse
                                 return (
                                     <UserContainerInsideList
                                         user={user}
+                                        postUser={{ birthDate: null, gender: user.gender, id: user.id, name: user.name, phone: user.phone }}
                                         deleteUser={() => deleteUser(user.id)}
                                         key={user.id}
                                         editUser={(userToEdit) => editUser(userToEdit)}

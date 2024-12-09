@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { User } from "../App";
+import { postUserDTO } from "../App";
 import style from "./EditUserModal.module.css";
 import EditUserForm from "../EditUserForm/EditUserForm";
 
 type EditUserModalProps = {
-    user: User;
+    postUser: postUserDTO;
     cancelEdit: () => void;
     onClickEvent: (
         userAgeInput: string,
@@ -13,32 +13,33 @@ type EditUserModalProps = {
     ) => void;
 }
 
-export default function EditUserModal({ user, cancelEdit, onClickEvent }: EditUserModalProps) {
-    const [userNameInput, setUserNameInput] = useState<string>('');
-    const [userAgeInput, setUserAgeInput] = useState<string>('');
-    const [userPhoneInput, setUserPhoneInput] = useState<string>('');
+export default function EditUserModal({ postUser, cancelEdit, onClickEvent }: EditUserModalProps) {
+    const [nameInput, setNameInput] = useState<string>('');
+    const [birthDateInput, setBirthDateInput] = useState<Date | null>();
+    const [phoneInput, setPhoneInput] = useState<string>('');
 
     useEffect(() => {
-        setUserNameInput(user.name);
-        setUserAgeInput(user.age.toString());
-        setUserPhoneInput(user.phone);
+        setNameInput(postUser.name);
+        setBirthDateInput(postUser.birthDate);
+        setPhoneInput(postUser.phone);
     }, [])
+
     return (
         <div className={style.backdrop} onClick={cancelEdit} >
             <div className={style["content"]} onClick={e => e.stopPropagation()}>
                 <div className={style["top"]}>
-                    <p><span style={{ color: "red" }}>Atention: You're editing {user.name} data.</span></p>
+                    <p><span style={{ color: "red" }}>Atention: You're editing {postUser.name} data.</span></p>
                     <hr />
                     <p>This can't be undone</p>
                 </div>
                 <div className={style["mid"]}>
                     <EditUserForm
-                        setAge={setUserAgeInput}
-                        setName={setUserNameInput}
-                        setPhone={setUserPhoneInput}
-                        age={userAgeInput}
-                        name={userNameInput}
-                        phone={userPhoneInput}
+                        setBirthDate={setBirthDateInput}
+                        setName={setNameInput}
+                        setPhone={setPhoneInput}
+                        birthDate={birthDateInput != undefined ? birthDateInput : null}
+                        name={nameInput}
+                        phone={phoneInput}
                         cancelEdit={cancelEdit}
                         onClickEvent={onClickEvent}
                     />

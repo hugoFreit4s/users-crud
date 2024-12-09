@@ -1,10 +1,10 @@
 import InsertUserInput from "../InsertUserForm/InsertUserForm"
 import styles from "./AddUserModal.module.css"
-import { User } from "../App";
+import { postUserDTO } from "../App";
 
 type AddUserModalProps = {
     closeModal: () => void;
-    insertUser: (user: User) => void;
+    insertUser: (user: postUserDTO) => void;
 }
 
 export default function AddUserModal({ closeModal, insertUser }: AddUserModalProps) {

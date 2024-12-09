@@ -1,4 +1,4 @@
-import { User } from "./App";
+import { postUserDTO } from "./App";
 
 export async function getUsers() {
     const data = await fetch("http://localhost:8080/user");
@@ -6,15 +6,16 @@ export async function getUsers() {
     return res;
 }
 
-export async function insertUser(user: User) {
+export async function insertUser(user: postUserDTO) {
     let toastMessage = '';
     let toastCategory = '';
     let users;
+    const seralizedUser = { ...user, birthDate: user.birthDate?.toISOString().split('T')[0] }
     try {
         await fetch("http://localhost:8080/user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user)
+            body: JSON.stringify(seralizedUser)
         });
         toastMessage = "User added!";
         toastCategory = "success";
@@ -32,7 +33,7 @@ export async function insertUser(user: User) {
     return responseDTO;
 }
 
-export async function editUser(user: User) {
+export async function editUser(user: postUserDTO) {
     await fetch(`http://localhost:8080/user/${user.id}`,
         {
             method: "PUT", headers: { "Content-Type": "application/json" }
