@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getCars } from "../API";
 import AllCarsList from "../AllCarsList/AllCarsList";
 
-export type getCarDTO = { id: number, ownerName: string, name: string };
+export type getCarDTO = { id: number, ownerName: string, name: string, value: number };
 export default function CarsPage() {
     const [cars, setCars] = useState<getCarDTO[]>([]);
 
