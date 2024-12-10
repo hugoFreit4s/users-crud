@@ -3,7 +3,7 @@ import CustomButton from './CustomButton/CustomButton';
 import UserDiv from './UserContainer/UserContainer';
 import AllUsersList from './AllUsersList/AllUsersList';
 import { insertUser, editUser, deleteUser, getUsers } from './API';
-import AddUserModal from './AddUserModal/AddUserModal';
+import AddUserModal from './InsertUserModal/InsertUserModal';
 import ToastMessage from './ToastMessage/ToastMessage';
 import style from "./App.module.css";
 

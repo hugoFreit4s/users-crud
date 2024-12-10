@@ -1,5 +1,5 @@
 import InsertUserInput from "../InsertUserForm/InsertUserForm"
-import styles from "./AddUserModal.module.css"
+import styles from "./InsertUserModal.module.css"
 import { postUserDTO } from "../App";
 
 type AddUserModalProps = {

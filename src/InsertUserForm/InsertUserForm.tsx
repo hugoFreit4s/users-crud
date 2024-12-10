@@ -17,6 +17,9 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
     const [nameError, setNameError] = useState<boolean>(false);
     const [phoneErrorClass, setPhoneErrorClass] = useState<string>("hide-error");
     const [phoneError, setPhoneError] = useState<boolean>(false);
+    const [birthDateErrorClass, setBirthDateErrorClass] = useState<string>("hide-error");
+    const [birthDateErrorMessage, setBirthDateErrorMessage] = useState<string>();
+    const [birthDateError, setBirthDateError] = useState<boolean>(false);
 
     useEffect(() => {
         if (name !== undefined && (name.length >= 1 && name.length <= 2)) {
@@ -26,7 +29,7 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
             setNameErrorClass("hide-error");
             setNameError(false);
         }
-    }, [name])
+    }, [name]);
 
     useEffect(() => {
         if (phone !== undefined && phone.length !== 11) {
@@ -36,7 +39,24 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
             setPhoneErrorClass("hide-error")
             setPhoneError(false);
         }
-    }, [phone])
+    }, [phone]);
+
+    useEffect(() => {
+        const minYear = new Date().getFullYear() - 18;
+        if (birthDate === undefined && birthDate === null) {
+            setBirthDateErrorMessage("Date can't be empty!");
+            setBirthDateErrorClass("show-error");
+            setBirthDateError(true);
+        } else if (birthDate.getFullYear() > minYear) {
+            setBirthDateErrorMessage("Minor age users can't be registered!");
+            setBirthDateErrorClass("show-error");
+            setBirthDateError(true);
+        } else {
+            setBirthDateErrorMessage("");
+            setBirthDateErrorClass("hide-error");
+            setBirthDateError(false);
+        }
+    }, [birthDate]);
 
     return (
         <div className={style["inputs-div"]}>
@@ -55,8 +75,8 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
                 </div>
                 <div className={style["single-input-div"]}>
                     <p>Birth date</p>
-                    <input className={style["input-box"]} type="date" onChange={e => setBirthDate(new Date(e.target.value))} />
-                    <span className={style['']}>Date can't be empty</span>
+                    <input className={style["input-box"]} type="date" max={new Date().toString()} onChange={e => setBirthDate(new Date(e.target.value))} />
+                    <span className={style[birthDateErrorClass]}>{birthDateErrorMessage}</span>
                 </div>
                 <div className={style["single-input-div"]}>
                     <p>Phone</p>
@@ -68,8 +88,8 @@ export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
                 <CustomButton
                     className="primary-btn"
                     onClickEvent={() => {
-                        if (!phoneError && !nameError) {
-                            insertUser({ id: null, gender: gender, name: name!, birthDate: birthDate, phone: phone! })
+                        if (!phoneError && !nameError && !birthDateError) {
+                            insertUser({ id: null, gender: gender, name: name!, birthDate: birthDate!, phone: phone! });
                         }
                     }}
                     textContent='Insert User'
