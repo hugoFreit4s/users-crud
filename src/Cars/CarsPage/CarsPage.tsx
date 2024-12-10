@@ -1,18 +1,27 @@
 import style from "./CarsPage.module.css";
 import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 import { useEffect, useState } from "react";
-import { getCars } from "../../API";
+import { getCars, getUsers } from "../../API";
 import AllCarsList from "../AllCarsList/AllCarsList";
 import CustomButton from "../../CustomButton/CustomButton";
+import InsertCarModal from "../InsertCarModal/InsertCarModal";
+import { getUserDTO } from "../../Users/UsersPage/UsersPage";
 
 export type getCarDTO = { id: number, ownerName: string, name: string, value: number };
+export type postCarDTO = { id: null, ownerName: string, value: number };
+
 export default function CarsPage() {
     const [cars, setCars] = useState<getCarDTO[]>([]);
+    const [users, setUsers] = useState<getUserDTO[]>([]);
     const [isInsertCarModalOpen, setIsInsertCarModalOpen] = useState<boolean>(false);
     const [isCarListOpen, setIsCarListOpen] = useState<boolean>(false);
 
     async function callGetCars() {
         return await getCars();
+    }
+
+    async function callGetUsers() {
+        return await getUsers();
     }
 
     useEffect(() => {
@@ -25,6 +34,18 @@ export default function CarsPage() {
             }
         }
         fetchCars();
+    }, []);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const users = await callGetUsers();
+                setUsers(users);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        fetchUsers();
     }, [])
 
     return (
@@ -37,7 +58,7 @@ export default function CarsPage() {
                         onClickEvent={() => setIsInsertCarModalOpen(!isInsertCarModalOpen)}
                         textContent='+ New Car'
                     />
-                    {isInsertCarModalOpen && "open!"}
+                    {isInsertCarModalOpen && <InsertCarModal users={users} closeModal={() => setIsInsertCarModalOpen(!isInsertCarModalOpen)} />}
                     <CustomButton
                         className="secondary-btn"
                         onClickEvent={() => setIsCarListOpen(!isCarListOpen)}
