@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { postUserDTO } from "../App";
+import { postUserDTO } from "../UsersPage/UsersPage";
 import style from "./EditUserModal.module.css";
 import EditUserForm from "../EditUserForm/EditUserForm";
 

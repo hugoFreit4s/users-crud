@@ -1,10 +1,10 @@
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
-import { getUserDTO, postUserDTO } from "../App";
+import { getUserDTO, postUserDTO } from "../UsersPage/UsersPage";
 import EditUserModal from "../EditUserModal/EditUserModal";
 import { useState } from "react";
 import style from "./UserContainer.module.css";
-import CustomButton from "../CustomButton/CustomButton";
-import profilepic from "../public/profile-pic.png";
+import CustomButton from "../../CustomButton/CustomButton";
+import profilepic from "../../public/profile-pic.png";
 
 type UserDivProps = {
     user: getUserDTO;

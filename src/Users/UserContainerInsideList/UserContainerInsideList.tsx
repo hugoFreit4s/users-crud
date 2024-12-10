@@ -1,10 +1,10 @@
 import { useState } from "react";
-import CustomButton from "../CustomButton/CustomButton"
+import CustomButton from "../../CustomButton/CustomButton"
 import styles from "./UserContainerInsideList.module.css"
-import { getUserDTO, postUserDTO } from "../App";
+import { getUserDTO, postUserDTO } from "../UsersPage/UsersPage";
 import DeleteUserModal from "../DeleteUserModal/DeleteUserModal";
 import EditUserModal from "../EditUserModal/EditUserModal";
-import profilepic from "../public/profile-pic.png";
+import profilepic from "../../public/profile-pic.png";
 
 type UserContainerInsideListProps = {
     user: getUserDTO;

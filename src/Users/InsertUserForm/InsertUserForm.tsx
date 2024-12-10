@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
-import CustomButton from "../CustomButton/CustomButton";
-import style from "../InsertUserForm/InsertUserForm.module.css";
-type EditUserFormProps = {
-    name: string;
-    setName: (name: string) => void;
-    birthDate: Date | null;
-    setBirthDate: (birthDate: Date) => void;
-    phone: string;
-    setPhone: (phone: string) => void;
-    cancelEdit: () => void;
-    onClickEvent: (
-        userAgeInput: string,
-        userNameInput: string,
-        userPhoneInput: string
-    ) => void;
+import style from "./InsertUserForm.module.css";
+import CustomButton from "../../CustomButton/CustomButton";
+import { postUserDTO } from "../UsersPage/UsersPage";
+
+type InsertUserFormProps = {
+    insertUser: (user: postUserDTO) => void;
 }
 
-export default function EditUserForm({ name, setName, birthDate, setBirthDate, phone, setPhone, cancelEdit, onClickEvent }: EditUserFormProps) {
+export default function InsertUserForm({ insertUser }: InsertUserFormProps) {
 
+    const [name, setName] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [birthDate, setBirthDate] = useState<Date>(new Date());
+    const [gender, setGender] = useState<string>("");
     const [nameErrorClass, setNameErrorClass] = useState<string>("hide-error");
     const [nameError, setNameError] = useState<boolean>(false);
     const [phoneErrorClass, setPhoneErrorClass] = useState<string>("hide-error");
@@ -27,8 +22,28 @@ export default function EditUserForm({ name, setName, birthDate, setBirthDate, p
     const [birthDateError, setBirthDateError] = useState<boolean>(false);
 
     useEffect(() => {
+        if (name !== undefined && (name.length >= 1 && name.length <= 2)) {
+            setNameErrorClass("show-error");
+            setNameError(true);
+        } else {
+            setNameErrorClass("hide-error");
+            setNameError(false);
+        }
+    }, [name]);
+
+    useEffect(() => {
+        if (phone !== undefined && phone.length !== 11) {
+            setPhoneErrorClass("show-error")
+            setPhoneError(true);
+        } else {
+            setPhoneErrorClass("hide-error")
+            setPhoneError(false);
+        }
+    }, [phone]);
+
+    useEffect(() => {
         const minYear = new Date().getFullYear() - 18;
-        if (birthDate === undefined || birthDate === null) {
+        if (birthDate === undefined && birthDate === null) {
             setBirthDateErrorMessage("Date can't be empty!");
             setBirthDateErrorClass("show-error");
             setBirthDateError(true);
@@ -43,26 +58,6 @@ export default function EditUserForm({ name, setName, birthDate, setBirthDate, p
         }
     }, [birthDate]);
 
-    useEffect(() => {
-        if (name !== undefined && (name.length >= 1 && name.length <= 2)) {
-            setNameErrorClass("show-error");
-            setNameError(true);
-        } else {
-            setNameErrorClass("hide-error");
-            setNameError(false);
-        }
-    }, [name])
-
-    useEffect(() => {
-        if (phone !== undefined && phone.length !== 11) {
-            setPhoneErrorClass("show-error")
-            setPhoneError(true);
-        } else {
-            setPhoneErrorClass("hide-error")
-            setPhoneError(false);
-        }
-    }, [phone])
-
     return (
         <div className={style["inputs-div"]}>
             <div className={style["top-div"]}>
@@ -70,6 +65,13 @@ export default function EditUserForm({ name, setName, birthDate, setBirthDate, p
                     <p>Name</p>
                     <input className={style["input-box"]} value={name} type="text" onChange={e => setName(e.target.value)} />
                     <span className={style[nameErrorClass]}>Name must have more than 2 characters</span>
+                </div>
+                <div className={style["single-input-div"]}>
+                    <p>Gender</p>
+                    <select value={gender} onChange={e => setGender(e.target.value)}>
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
                 </div>
                 <div className={style["single-input-div"]}>
                     <p>Birth date</p>
@@ -84,18 +86,13 @@ export default function EditUserForm({ name, setName, birthDate, setBirthDate, p
             </div>
             <div className={style["bottom-div"]}>
                 <CustomButton
-                    className="secondary-btn"
-                    onClickEvent={cancelEdit}
-                    textContent="Cancel"
-                />
-                <CustomButton
-                    className="danger-btn"
+                    className="primary-btn"
                     onClickEvent={() => {
                         if (!phoneError && !nameError && !birthDateError) {
-                            onClickEvent(birthDate!.toString(), name, phone)
+                            insertUser({ id: null, gender: gender, name: name!, birthDate: birthDate!, phone: phone! });
                         }
                     }}
-                    textContent="Confirm"
+                    textContent='Insert User'
                 />
             </div>
         </div>

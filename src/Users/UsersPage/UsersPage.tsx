@@ -1,15 +1,15 @@
 import style from "./UsersPage.module.css";
 import { useEffect, useState } from 'react';
-import CustomButton from '../CustomButton/CustomButton';
+import CustomButton from '../../CustomButton/CustomButton';
 import UserDiv from '../UserContainer/UserContainer';
 import AllUsersList from '../AllUsersList/AllUsersList';
-import { insertUser, editUser, deleteUser, getUsers } from '../API';
-import AddUserModal from '../InsertUserModal/InsertUserModal';
-import ToastMessage from '../ToastMessage/ToastMessage';
+import { insertUser, editUser, deleteUser, getUsers } from '../../API';
+import InsertUserModal from '../InsertUserModal/InsertUserModal';
+import ToastMessage from '../../ToastMessage/ToastMessage';
 import { useNavigate } from "react-router";
-import NavigateBackButton from "../NavigateBackButton/NavigateBackButton";
+import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 
-export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | string, phone: string };
+export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | null, phone: string };
 export type getUserDTO = { id: number, name: string, gender: string, phone: string, age: number };
 type ToastState = { message: string, isShown: boolean, category: "fail" | "success" | "alert" | string }
 
@@ -71,7 +71,7 @@ export default function UsersPage() {
                         textContent='+ New User'
                     />
                     {isInsertUserModalOpened &&
-                        <AddUserModal
+                        <InsertUserModal
                             closeModal={() => setIsInsertUserModalOpened(!isInsertUserModalOpened)}
                             insertUser={(user) => {
                                 callInsertUser(user);
@@ -90,7 +90,7 @@ export default function UsersPage() {
                     return (
                         <UserDiv
                             user={user}
-                            postUser={{ birthDate: null, gender: user.gender, id: user.id, name: user.name, phone: user.phone }}
+                            postUser={{ birthDate: null!, gender: user.gender, id: user.id, name: user.name, phone: user.phone }}
                             userName={user.name}
                             userAge={user.age}
                             userID={user.id}

@@ -1,4 +1,4 @@
-import CustomButton from "../CustomButton/CustomButton";
+import CustomButton from "../../CustomButton/CustomButton";
 import styles from "./DeleteUserModal.module.css";
 
 type DeleteUserModalProps = {

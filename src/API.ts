@@ -1,4 +1,4 @@
-import { postUserDTO } from "./UsersPage/UsersPage";
+import { postUserDTO } from "./Users/UsersPage/UsersPage";
 
 export async function getUsers() {
     const data = await fetch("http://localhost:8080/user", { method: "GET" });

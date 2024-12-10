@@ -1,8 +1,8 @@
-import { getUserDTO, postUserDTO } from "../App";
+import { getUserDTO, postUserDTO } from "../UsersPage/UsersPage";
 import styles from "./AllUsersList.module.css";
 import UserContainerInsideList from "../UserContainerInsideList/UserContainerInsideList";
 import { useEffect, useState } from "react";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../../SearchBar/SearchBar";
 
 type AllUsersListProps = {
     closeModal: () => void;
