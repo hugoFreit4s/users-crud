@@ -1,8 +1,9 @@
-import { postUserDTO } from "./App";
+import { postUserDTO } from "./UsersPage/UsersPage";
 
 export async function getUsers() {
-    const data = await fetch("http://localhost:8080/user");
+    const data = await fetch("http://localhost:8080/user", { method: "GET" });
     const res = await data.json();
+    
     return res;
 }
 
@@ -10,12 +11,11 @@ export async function insertUser(user: postUserDTO) {
     let toastMessage = '';
     let toastCategory = '';
     let users;
-    const seralizedUser = { ...user, birthDate: user.birthDate?.toISOString().split('T')[0] }
     try {
         await fetch("http://localhost:8080/user", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(seralizedUser)
+            body: JSON.stringify(user)
         });
         toastMessage = "User added!";
         toastCategory = "success";
@@ -45,4 +45,11 @@ export async function editUser(user: postUserDTO) {
 export async function deleteUser(ID: number) {
     await fetch(`http://localhost:8080/user/${ID}`, { method: "DELETE" });
     return await getUsers();
+}
+
+export async function getCars(){
+    const data = await fetch("http://localhost:8080/car", { method: "GET" });
+    const res = data.json();
+    
+    return res;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "./InsertUserForm.module.css";
 import CustomButton from "../CustomButton/CustomButton";
-import { postUserDTO } from "../App";
+import { postUserDTO } from "../UsersPage/UsersPage";
 
 type InsertUserFormProps = {
     insertUser: (user: postUserDTO) => void;

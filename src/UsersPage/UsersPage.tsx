@@ -9,7 +9,7 @@ import ToastMessage from '../ToastMessage/ToastMessage';
 import { useNavigate } from "react-router";
 import NavigateBackButton from "../NavigateBackButton/NavigateBackButton";
 
-export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | null, phone: string };
+export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | string, phone: string };
 export type getUserDTO = { id: number, name: string, gender: string, phone: string, age: number };
 type ToastState = { message: string, isShown: boolean, category: "fail" | "success" | "alert" | string }
 
