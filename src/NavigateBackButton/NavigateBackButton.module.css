@@ -1,0 +1,20 @@
+.navegate_back_btn {
+    width: fit-content;
+    height: fit-content;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #6C757D;
+    border: 2px solid #6C757D;
+    color: white;
+    padding: 1px 6px 1px 6px;
+    border-radius: 100px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.navegate_back_btn:hover {
+    color: black;
+    background-color: #A6ACB0;
+}
