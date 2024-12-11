@@ -1,9 +1,10 @@
+import { postCarDTO } from "./Cars/CarsPage/CarsPage";
 import { postUserDTO } from "./Users/UsersPage/UsersPage";
 
 export async function getUsers() {
     const data = await fetch("http://localhost:8080/user", { method: "GET" });
     const res = await data.json();
-    
+
     return res;
 }
 
@@ -36,8 +37,8 @@ export async function insertUser(user: postUserDTO) {
 export async function editUser(user: postUserDTO) {
     await fetch(`http://localhost:8080/user/${user.id}`,
         {
-            method: "PUT", headers: { "Content-Type": "application/json" }
-            , body: JSON.stringify(user)
+            method: "PUT", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
         })
     return await getUsers();
 }
@@ -47,9 +48,20 @@ export async function deleteUser(ID: number) {
     return await getUsers();
 }
 
-export async function getCars(){
+export async function getCars() {
     const data = await fetch("http://localhost:8080/car", { method: "GET" });
     const res = data.json();
-    
+
     return res;
+}
+
+export async function addCar(car: postCarDTO) {
+    await fetch("http://localhost:8080/car",
+        {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(car)
+        }
+    )
+    
+    return await getCars();
 }

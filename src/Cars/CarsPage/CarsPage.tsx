@@ -5,10 +5,10 @@ import { getCars, getUsers } from "../../API";
 import AllCarsList from "../AllCarsList/AllCarsList";
 import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
-import { getUserDTO } from "../../Users/UsersPage/UsersPage";
+import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
 
 export type getCarDTO = { id: number, ownerName: string, name: string, value: number };
-export type postCarDTO = { id: null, ownerName: string, value: number };
+export type postCarDTO = { id: null, manufactureYear: number, brand: string, value: number, owner: postUserDTO };
 
 export default function CarsPage() {
     const [cars, setCars] = useState<getCarDTO[]>([]);
@@ -58,7 +58,11 @@ export default function CarsPage() {
                         onClickEvent={() => setIsInsertCarModalOpen(!isInsertCarModalOpen)}
                         textContent='+ New Car'
                     />
-                    {isInsertCarModalOpen && <InsertCarModal users={users} closeModal={() => setIsInsertCarModalOpen(!isInsertCarModalOpen)} />}
+                    {isInsertCarModalOpen && <InsertCarModal
+                        users={users}
+                        closeModal={() => setIsInsertCarModalOpen(!isInsertCarModalOpen)}
+                        updateCars={cars => setCars(cars)}
+                    />}
                     <CustomButton
                         className="secondary-btn"
                         onClickEvent={() => setIsCarListOpen(!isCarListOpen)}

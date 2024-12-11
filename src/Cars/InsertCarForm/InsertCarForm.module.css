@@ -7,3 +7,11 @@ main {
     padding: 3px 10px 3px 10px;
     border-radius: 3px;
 }
+
+.error-msg{
+    color: red;
+}
+
+.year-error-message{
+    max-width: 200px;
+}
