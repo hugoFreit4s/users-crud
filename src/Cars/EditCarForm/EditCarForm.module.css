@@ -1,23 +1,18 @@
-main {
-    display: flex;
-}
-
 .input-box {
     border: 1px solid black;
     padding: 3px 10px 3px 10px;
     border-radius: 3px;
 }
 
-.error-msg{
-    color: red;
-}
-
-.year-error-message{
-    max-width: 200px;
-}
-
-.input-container{
+.input-container {
     display: flex;
     flex-direction: column;
     line-height: 20px;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 25px;
 }

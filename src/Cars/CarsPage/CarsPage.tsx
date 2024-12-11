@@ -7,8 +7,8 @@ import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
 
-export type getCarDTO = { id: number, ownerName: string, name: string, value: number };
-export type postCarDTO = { id: null, manufactureYear: number, brand: string, modelName: string, value: number, owner: postUserDTO };
+export type getCarDTO = { id: number, manufactureYear: number, brand: string, modelName: string, ownerName: string, name: string, value: number };
+export type postCarDTO = { id: null | number, manufactureYear: number, brand: string, modelName: string, value: number, owner: postUserDTO };
 
 export default function CarsPage() {
     const [cars, setCars] = useState<getCarDTO[]>([]);
@@ -73,6 +73,7 @@ export default function CarsPage() {
             <div className={style["main-content"]}>
                 <AllCarsContainer
                     cars={cars}
+                    users={users}
                     updateCars={cars => setCars(cars)}
                 />
             </div>

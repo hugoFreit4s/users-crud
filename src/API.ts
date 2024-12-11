@@ -74,3 +74,13 @@ export async function deleteCar(id: number) {
 
     return await getCars();
 }
+
+export async function editCar(car: postCarDTO) {
+    await fetch("http://localhost:8080/car",
+        {
+            method: "PUT", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(car)
+        })
+
+    return await getCars();
+}
