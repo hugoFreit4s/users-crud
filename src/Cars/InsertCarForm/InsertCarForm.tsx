@@ -2,8 +2,8 @@ import style from "./InsertCarForm.module.css";
 import { getUserDTO } from "../../Users/UsersPage/UsersPage";
 import { useEffect, useState } from "react";
 import CustomButton from "../../CustomButton/CustomButton";
-import { getCarDTO } from "../CarsPage/CarsPage";
-import { addCar, getCars } from "../../API";
+import { getCarDTO, postCarDTO } from "../CarsPage/CarsPage";
+import { addCar } from "../../API";
 
 type InsertCarFormProps = {
     users: getUserDTO[];
@@ -68,8 +68,8 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
         }
     }, [manufactureYear])
 
-    async function callGetCars() {
-        return await getCars();
+    async function callAddCar(car: postCarDTO) {
+        return await addCar(car);
     }
 
     return (
@@ -107,10 +107,9 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
                 className="primary-btn"
                 onClickEvent={() => {
                     if (!brandHasError && !modelNameHasError && !ownerNameHasError && !valueHasError && !manufactureYearHasError) {
-                        addCar({ id: null, manufactureYear: manufactureYear!, brand: brand!, modelName: modelName!, value: value!, owner: owner! });
                         const fecthCars = async () => {
                             try {
-                                const cars = await callGetCars();
+                                const cars = await callAddCar({ id: null, manufactureYear: manufactureYear!, brand: brand!, modelName: modelName!, value: value!, owner: owner! });
                                 updateCars(cars);
                             } catch (error) {
                                 console.log(error)
@@ -121,7 +120,6 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
                     }
                 }}
                 textContent="Add car"
-                key={1}
             />
         </main>
     )

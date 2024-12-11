@@ -15,7 +15,7 @@ export default function InsertCarModal({ users, updateCars, closeModal }: Insert
             <div className={style["content"]} onClick={e => e.stopPropagation()}>
                 <InsertCarForm
                     users={users}
-                    updateCars={updateCars}
+                    updateCars={cars => updateCars(cars)}
                     closeModal={closeModal}
                 />
             </div>
