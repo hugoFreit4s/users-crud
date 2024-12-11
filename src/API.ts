@@ -60,8 +60,17 @@ export async function addCar(car: postCarDTO) {
         {
             method: "POST", headers: { "Content-Type": "application/json" },
             body: JSON.stringify(car)
-        }
-    )
-    
+        })
+
+    return await getCars();
+}
+
+export async function deleteCar(id: number) {
+    await fetch("http://localhost:8080/car",
+        {
+            method: "DELETE", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(id)
+        })
+
     return await getCars();
 }

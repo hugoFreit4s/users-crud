@@ -71,7 +71,10 @@ export default function CarsPage() {
                 </div>
             </div>
             <div className={style["main-content"]}>
-                <AllCarsContainer cars={cars} />
+                <AllCarsContainer
+                    cars={cars}
+                    updateCars={cars => setCars(cars)}
+                />
             </div>
         </main>
     )
