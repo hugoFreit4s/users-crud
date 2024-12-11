@@ -1,3 +1,4 @@
+import CustomButton from "../../CustomButton/CustomButton";
 import { getCarDTO } from "../CarsPage/CarsPage"
 
 type CarContainerProps = {
@@ -9,7 +10,13 @@ export default function CarContainer({ car }: CarContainerProps) {
         <div>
             <p>Car: {car.name}</p>
             <p>Owner: {car.ownerName}</p>
-            <p>Value: {car.value.toLocaleString("pt-BR", { style: "currency", currency: "BRL"})}</p>
+            <p>Value: {car.value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+            <CustomButton
+                className="danger-btn"
+                onClickEvent={() => { }}
+                textContent="Delete"
+                key={car.id}
+            />
         </div>
     )
 }

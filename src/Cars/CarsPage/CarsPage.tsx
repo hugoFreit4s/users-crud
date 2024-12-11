@@ -2,7 +2,7 @@ import style from "./CarsPage.module.css";
 import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 import { useEffect, useState } from "react";
 import { getCars, getUsers } from "../../API";
-import AllCarsList from "../AllCarsList/AllCarsList";
+import AllCarsContainer from "../AllCarsContainers/AllCarsContainers";
 import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
@@ -71,7 +71,7 @@ export default function CarsPage() {
                 </div>
             </div>
             <div className={style["main-content"]}>
-                <AllCarsList cars={cars} />
+                <AllCarsContainer cars={cars} />
             </div>
         </main>
     )

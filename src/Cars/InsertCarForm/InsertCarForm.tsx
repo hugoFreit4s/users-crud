@@ -106,9 +106,18 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
             <CustomButton
                 className="primary-btn"
                 onClickEvent={() => {
-                    console.log(owner)
                     if (!brandHasError && !modelNameHasError && !ownerNameHasError && !valueHasError && !manufactureYearHasError) {
                         addCar({ id: null, manufactureYear: manufactureYear!, brand: brand!, modelName: modelName!, value: value!, owner: owner! });
+                        const fecthCars = async () => {
+                            try {
+                                const cars = await callGetCars();
+                                updateCars(cars);
+                            } catch (error) {
+                                console.log(error)
+                            }
+                        }
+                        fecthCars();
+                        closeModal();
                     }
                 }}
                 textContent="Add car"

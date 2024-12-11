@@ -4,7 +4,7 @@ import { getCarDTO } from "../CarsPage/CarsPage"
 type AllCarsListProps = {
     cars: Array<getCarDTO>;
 }
-export default function AllCarsList({ cars }: AllCarsListProps) {
+export default function AllCarsContainer({ cars }: AllCarsListProps) {
     return (
         <main>
             {cars.length > 0 &&
