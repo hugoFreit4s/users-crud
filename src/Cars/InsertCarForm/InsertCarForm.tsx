@@ -108,10 +108,11 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
                 onClickEvent={() => {
                     console.log(owner)
                     if (!brandHasError && !modelNameHasError && !ownerNameHasError && !valueHasError && !manufactureYearHasError) {
-                        addCar({ id: null, manufactureYear: manufactureYear!, brand: brand!, value: value!, owner: owner! });
+                        addCar({ id: null, manufactureYear: manufactureYear!, brand: brand!, modelName: modelName!, value: value!, owner: owner! });
                     }
                 }}
                 textContent="Add car"
+                key={1}
             />
         </main>
     )

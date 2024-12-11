@@ -8,7 +8,7 @@ import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
 
 export type getCarDTO = { id: number, ownerName: string, name: string, value: number };
-export type postCarDTO = { id: null, manufactureYear: number, brand: string, value: number, owner: postUserDTO };
+export type postCarDTO = { id: null, manufactureYear: number, brand: string, modelName: string, value: number, owner: postUserDTO };
 
 export default function CarsPage() {
     const [cars, setCars] = useState<getCarDTO[]>([]);

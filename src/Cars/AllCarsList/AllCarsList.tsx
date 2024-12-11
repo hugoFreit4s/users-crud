@@ -9,7 +9,7 @@ export default function AllCarsList({ cars }: AllCarsListProps) {
         <main>
             {cars.length > 0 &&
                 cars.map(car => {
-                    return <CarContainer car={car}></CarContainer>
+                    return <CarContainer car={car} key={car.id}></CarContainer>
                 })}
             {cars.length <= 0 && <p>No registered cars</p>}
         </main>
