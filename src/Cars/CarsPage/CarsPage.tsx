@@ -1,7 +1,7 @@
 import style from "./CarsPage.module.css";
 import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 import { useEffect, useState } from "react";
-import { getCars, getUsers } from "../../API";
+import { filterCarByBrand, getCars, getUsers } from "../../API";
 import AllCarsContainer from "../AllCarsContainers/AllCarsContainers";
 import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
@@ -15,6 +15,9 @@ export default function CarsPage() {
     const [users, setUsers] = useState<getUserDTO[]>([]);
     const [isInsertCarModalOpen, setIsInsertCarModalOpen] = useState<boolean>(false);
     const [isCarListOpen, setIsCarListOpen] = useState<boolean>(false);
+    const [allBrands, setAllBrands] = useState<string[]>([]);
+    const [brand, setBrand] = useState<string>();
+    const [filterValue, setFilterValue] = useState<string>("default");
 
     async function callGetCars() {
         return await getCars();
@@ -22,6 +25,10 @@ export default function CarsPage() {
 
     async function callGetUsers() {
         return await getUsers();
+    }
+
+    async function callFilterCarByBrand(brand: string) {
+        return await filterCarByBrand(brand);
     }
 
     useEffect(() => {
@@ -46,12 +53,56 @@ export default function CarsPage() {
             }
         }
         fetchUsers();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        cars.map(car => {
+            if (!allBrands.includes(car.brand)) {
+                setAllBrands([...allBrands, car.brand]);
+                return car.brand;
+            }
+        });
+    }, [cars])
 
     return (
         <main>
             <div className={style["top-container"]}>
                 <NavigateBackButton path="/" />
+                <div className={style["filter-container"]}>
+                    <div>
+                        Filter:
+                    </div>
+                    <select defaultValue={"default"} value={filterValue} className={style["input-box"]} onChange={e => {
+                        setBrand(e.target.value)
+                        setFilterValue(brand!);
+                    }}>
+                        <option value="default" disabled hidden>Brand</option>
+                        {allBrands.map(brand => { return <option value={brand}>{brand}</option> })}
+                    </select>
+                    <CustomButton
+                        className="primary-btn"
+                        onClickEvent={() => {
+                            const fetchCars = async () => {
+                                const cars = await callFilterCarByBrand(brand!);
+                                setCars(cars);
+                            }
+                            fetchCars();
+                        }}
+                        textContent="Filter"
+                    />
+                    <CustomButton
+                        className="primary-btn"
+                        onClickEvent={() => {
+                            const fetchCars = async () => {
+                                const cars = await callGetCars();
+                                setCars(cars);
+                                setFilterValue("default");
+                            }
+                            fetchCars();
+                        }}
+                        textContent="Clean filters"
+                    />
+                </div>
                 <div className={style["edit-and-add-btns"]}>
                     <CustomButton
                         className="primary-btn"
