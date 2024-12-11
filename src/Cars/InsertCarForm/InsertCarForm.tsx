@@ -90,6 +90,7 @@ export default function InsertCarForm({ users, updateCars, closeModal }: InsertC
                     }
                 });
             }}>
+                <option value="" selected disabled hidden>Choose owner</option>
                 {users.map(user => {
                     return <option value={user.id}>{user.name}</option>
                 })}
