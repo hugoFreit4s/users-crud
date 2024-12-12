@@ -15,9 +15,9 @@ export default function CarsPage() {
     const [users, setUsers] = useState<getUserDTO[]>([]);
     const [isInsertCarModalOpen, setIsInsertCarModalOpen] = useState<boolean>(false);
     const [isCarListOpen, setIsCarListOpen] = useState<boolean>(false);
-    const [allBrands, setAllBrands] = useState<string[]>([]);
     const [brand, setBrand] = useState<string>();
     const [filterValue, setFilterValue] = useState<string>("default");
+    const [brands, setBrands] = useState<string[]>([]);
 
     async function callGetCars() {
         return await getCars();
@@ -56,13 +56,12 @@ export default function CarsPage() {
     }, []);
 
     useEffect(() => {
-        cars.map(car => {
-            if (!allBrands.includes(car.brand)) {
-                setAllBrands([...allBrands, car.brand]);
-                return car.brand;
-            }
+        const uniqueBrands = new Set<string>();
+        cars.forEach(car => {
+            uniqueBrands.add(car.brand);
         });
-    }, [cars])
+        setBrands(Array.from(uniqueBrands));
+    }, [cars]);
 
     return (
         <main>
@@ -72,12 +71,9 @@ export default function CarsPage() {
                     <div>
                         Filter:
                     </div>
-                    <select defaultValue={"default"} value={filterValue} className={style["input-box"]} onChange={e => {
-                        setBrand(e.target.value)
-                        setFilterValue(brand!);
-                    }}>
+                    <select defaultValue={"default"} value={brand} className={style["input-box"]} onChange={e => setBrand(e.target.value)}>
                         <option value="default" disabled hidden>Brand</option>
-                        {allBrands.map(brand => { return <option value={brand}>{brand}</option> })}
+                        {brands.map(brand => { return <option value={brand}>{brand}</option> })}
                     </select>
                     <CustomButton
                         className="primary-btn"
@@ -97,6 +93,7 @@ export default function CarsPage() {
                                 const cars = await callGetCars();
                                 setCars(cars);
                                 setFilterValue("default");
+                                setBrand("default");
                             }
                             fetchCars();
                         }}
@@ -128,6 +125,6 @@ export default function CarsPage() {
                     updateCars={cars => setCars(cars)}
                 />
             </div>
-        </main>
+        </main >
     )
 }

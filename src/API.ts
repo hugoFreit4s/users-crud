@@ -86,7 +86,7 @@ export async function editCar(car: postCarDTO) {
 }
 
 export async function filterCarByBrand(brand: string) {
-    const data = await fetch(`http://localhost:8080/car/${brand}`);
+    const data = await fetch(`http://localhost:8080/car/brandfilter?brand=${brand}`);
     const res = await data.json();
 
     return res;
