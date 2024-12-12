@@ -85,9 +85,26 @@ export async function editCar(car: postCarDTO) {
     return await getCars();
 }
 
-export async function filterCarByBrand(brand: string) {
-    const data = await fetch(`http://localhost:8080/car/brandfilter?brand=${brand}`);
-    const res = await data.json();
-
-    return res;
+export async function filterCars(brand: string, minValue: number, maxValue: number) {
+    const brandToFilter: string | undefined = brand === "default" ? undefined : brand;
+    let url;
+    if (brandToFilter !== undefined && minValue === undefined && maxValue === undefined) {
+        url = `http://localhost:8080/car/filter?brand=${brandToFilter}`;
+        const data = await fetch(url);
+        const res = data.json();
+        console.log(url);
+        return res;
+    } else if (brandToFilter !== undefined && minValue !== undefined && maxValue === undefined) {
+        url = `http://localhost:8080/car/filter?brand=${brandToFilter}&minValue=${minValue}`;
+        const data = await fetch(url);
+        const res = data.json();
+        console.log(url);
+        return res;
+    } else if (brandToFilter !== undefined && minValue === undefined && maxValue !== undefined) {
+        url = `http://localhost:8080/car/filter?brand=${brandToFilter}&maxValue=${maxValue}`;
+        const data = await fetch(url);
+        const res = data.json();
+        console.log(url);
+        return res;
+    }
 }

@@ -1,11 +1,12 @@
 import style from "./CarsPage.module.css";
 import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 import { useEffect, useState } from "react";
-import { filterCarByBrand, getCars, getUsers } from "../../API";
+import { filterCars, getCars, getUsers } from "../../API";
 import AllCarsContainer from "../AllCarsContainers/AllCarsContainers";
 import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
+import BrandFilter from "../BrandFilter/BrandFilter";
 
 export type getCarDTO = { id: number, manufactureYear: number, brand: string, modelName: string, ownerName: string, name: string, value: number };
 export type postCarDTO = { id: null | number, manufactureYear: number, brand: string, modelName: string, value: number, owner: postUserDTO };
@@ -15,9 +16,10 @@ export default function CarsPage() {
     const [users, setUsers] = useState<getUserDTO[]>([]);
     const [isInsertCarModalOpen, setIsInsertCarModalOpen] = useState<boolean>(false);
     const [isCarListOpen, setIsCarListOpen] = useState<boolean>(false);
-    const [brand, setBrand] = useState<string>();
-    const [filterValue, setFilterValue] = useState<string>("default");
+    const [brand, setBrand] = useState<string>("default");
     const [brands, setBrands] = useState<string[]>([]);
+    const [minValue, setMinValue] = useState<number>();
+    const [maxValue, setMaxValue] = useState<number>();
 
     async function callGetCars() {
         return await getCars();
@@ -27,8 +29,8 @@ export default function CarsPage() {
         return await getUsers();
     }
 
-    async function callFilterCarByBrand(brand: string) {
-        return await filterCarByBrand(brand);
+    async function callFilterCars(brand: string, minValue: number, maxValue: number) {
+        return await filterCars(brand, minValue, maxValue);
     }
 
     useEffect(() => {
@@ -71,16 +73,24 @@ export default function CarsPage() {
                     <div>
                         Filter:
                     </div>
-                    <select defaultValue={"default"} value={brand} className={style["input-box"]} onChange={e => setBrand(e.target.value)}>
-                        <option value="default" disabled hidden>Brand</option>
-                        {brands.map(brand => { return <option value={brand}>{brand}</option> })}
-                    </select>
+                    <BrandFilter
+                        brand={brand}
+                        brands={brands}
+                        setBrand={brand => setBrand(brand)}
+                    />
+                    <input type="number" value={minValue} onChange={e => setMinValue(Number(e.target.value))} />
+                    <input type="number" value={maxValue} onChange={e => setMaxValue(Number(e.target.value))} />
                     <CustomButton
                         className="primary-btn"
                         onClickEvent={() => {
+                            console.log('min: ', minValue, '\nmax: ', maxValue)
                             const fetchCars = async () => {
-                                const cars = await callFilterCarByBrand(brand!);
-                                setCars(cars);
+                                try {
+                                    const cars = await callFilterCars(brand, minValue!, maxValue!);
+                                    setCars(cars!);
+                                } catch (error) {
+                                    console.log(error)
+                                }
                             }
                             fetchCars();
                         }}
@@ -92,8 +102,9 @@ export default function CarsPage() {
                             const fetchCars = async () => {
                                 const cars = await callGetCars();
                                 setCars(cars);
-                                setFilterValue("default");
                                 setBrand("default");
+                                setMinValue(undefined);
+                                setMaxValue(undefined);
                             }
                             fetchCars();
                         }}
