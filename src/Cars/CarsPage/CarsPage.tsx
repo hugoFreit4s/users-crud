@@ -6,8 +6,6 @@ import AllCarsContainer from "../AllCarsContainers/AllCarsContainers";
 import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
-import BrandFilter from "../BrandFilter/BrandFilter";
-import PriceFilter from "../PriceFilter/PriceFilter";
 import FiltersModal from "../FiltersModal/FiltersModal";
 
 export type getCarDTO = { id: number, manufactureYear: number, brand: string, modelName: string, ownerName: string, name: string, value: number };

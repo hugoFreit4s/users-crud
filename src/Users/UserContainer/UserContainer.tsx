@@ -6,17 +6,14 @@ import style from "./UserContainer.module.css";
 import CustomButton from "../../CustomButton/CustomButton";
 import profilepic from "../../public/profile-pic.png";
 
-type UserDivProps = {
+type UserContainerProps = {
     user: getUserDTO;
     postUser: postUserDTO;
-    userName: string;
-    userAge: number;
-    userID: number;
     deleteUser: (userID: number) => void;
     onClickEvent: (user: postUserDTO) => void;
 }
 
-export default function UserDiv({ user, postUser, deleteUser, onClickEvent }: UserDivProps) {
+export default function UserContainer({ user, postUser, deleteUser, onClickEvent }: UserContainerProps) {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
@@ -46,7 +43,7 @@ export default function UserDiv({ user, postUser, deleteUser, onClickEvent }: Us
             {isDeleting && <DeleteUserModal
                 closeModal={() => setIsDeleting(!isDeleting)}
                 userName={user.name}
-                deleteUser={() => deleteUser(user.id!)}
+                deleteUser={() => deleteUser(user.id)}
                 key={user.id}
             />}
             {isEditing &&
@@ -55,7 +52,7 @@ export default function UserDiv({ user, postUser, deleteUser, onClickEvent }: Us
                         postUser={postUser}
                         cancelEdit={() => setIsEditing(!isEditing)}
                         onClickEvent={(userBirthInput, userNameInput, userPhoneInput) => {
-                            onClickEvent({ ...user, birthDate: new Date(userBirthInput), name: userNameInput, phone: userPhoneInput })
+                            onClickEvent({ ...user, birthDate: new Date(userBirthInput), name: userNameInput, phone: userPhoneInput });
                             setIsEditing(!isEditing);
                         }}
                         key={user.id}

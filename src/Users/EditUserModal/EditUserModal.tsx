@@ -37,7 +37,7 @@ export default function EditUserModal({ postUser, cancelEdit, onClickEvent }: Ed
                         setBirthDate={setBirthDateInput}
                         setName={setNameInput}
                         setPhone={setPhoneInput}
-                        birthDate={birthDateInput != undefined ? birthDateInput : null}
+                        birthDate={birthDateInput!}
                         name={nameInput}
                         phone={phoneInput}
                         cancelEdit={cancelEdit}

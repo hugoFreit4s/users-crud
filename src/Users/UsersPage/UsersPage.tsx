@@ -1,7 +1,7 @@
 import style from "./UsersPage.module.css";
 import { useEffect, useState } from 'react';
 import CustomButton from '../../CustomButton/CustomButton';
-import UserDiv from '../UserContainer/UserContainer';
+import UserContainer from '../UserContainer/UserContainer';
 import AllUsersList from '../AllUsersList/AllUsersList';
 import { insertUser, editUser, deleteUser, getUsers } from '../../API';
 import InsertUserModal from '../InsertUserModal/InsertUserModal';
@@ -88,16 +88,11 @@ export default function UsersPage() {
             <div className={style["users"]}>
                 {usersList.length > 0 && usersList.map(user => {
                     return (
-                        <UserDiv
+                        <UserContainer
                             user={user}
                             postUser={{ birthDate: null!, gender: user.gender, id: user.id, name: user.name, phone: user.phone }}
-                            userName={user.name}
-                            userAge={user.age}
-                            userID={user.id}
                             deleteUser={(id) => callDeleteUser(id!)}
-                            onClickEvent={(user) => {
-                                callEditUser(user);
-                            }}
+                            onClickEvent={(user) => callEditUser(user)}
                             key={user.id}
                         />
                     )

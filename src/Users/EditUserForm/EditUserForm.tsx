@@ -4,7 +4,7 @@ import style from "../InsertUserForm/InsertUserForm.module.css";
 type EditUserFormProps = {
     name: string;
     setName: (name: string) => void;
-    birthDate: Date | null;
+    birthDate: Date;
     setBirthDate: (birthDate: Date) => void;
     phone: string;
     setPhone: (phone: string) => void;
