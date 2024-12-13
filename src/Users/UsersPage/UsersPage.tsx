@@ -44,6 +44,10 @@ export default function UsersPage() {
         setUsersList(users);
     }
 
+    // async function callFilterUser(gender: string, age: number){
+    //     const users = await
+    // }
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {

@@ -86,7 +86,7 @@ export async function editCar(car: postCarDTO) {
     return await getCars();
 }
 
-export async function filterCars(brand: string, minValue: string, maxValue: string) {
+export async function filterCars(brand: string, minValue: string | undefined, maxValue: string | undefined) {
     const brandToFilter: string | undefined = brand === "default" ? undefined : brand;
     let minValueToFilter: number = 0;
     if (minValue === "" || minValue === undefined) {
@@ -122,4 +122,8 @@ export async function filterCars(brand: string, minValue: string, maxValue: stri
         const res = data.json();
         return res;
     }
+
+    // async function filterUsers(gender: string | undefined, age: number | undefined) {
+    //     await fetch(``)
+    // }
 }
