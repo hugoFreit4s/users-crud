@@ -7,6 +7,8 @@ import CustomButton from "../../CustomButton/CustomButton";
 import InsertCarModal from "../InsertCarModal/InsertCarModal";
 import { getUserDTO, postUserDTO } from "../../Users/UsersPage/UsersPage";
 import BrandFilter from "../BrandFilter/BrandFilter";
+import PriceFilter from "../PriceFilter/PriceFilter";
+import FiltersModal from "../FiltersModal/FiltersModal";
 
 export type getCarDTO = { id: number, manufactureYear: number, brand: string, modelName: string, ownerName: string, name: string, value: number };
 export type postCarDTO = { id: null | number, manufactureYear: number, brand: string, modelName: string, value: number, owner: postUserDTO };
@@ -20,6 +22,7 @@ export default function CarsPage() {
     const [brands, setBrands] = useState<string[]>([]);
     const [minValue, setMinValue] = useState<string>();
     const [maxValue, setMaxValue] = useState<string>();
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
     async function callGetCars() {
         return await getCars();
@@ -70,36 +73,51 @@ export default function CarsPage() {
             <div className={style["top-container"]}>
                 <NavigateBackButton path="/" />
                 <div className={style["filter-container"]}>
-                    <div>
-                        Filter:
-                    </div>
-                    <BrandFilter
-                        brand={brand}
-                        brands={brands}
-                        setBrand={brand => setBrand(brand)}
-                    />
-                    <input type="number" value={minValue} onChange={e => setMinValue(e.target.value)} />
-                    <input type="number" value={maxValue} onChange={e => setMaxValue(e.target.value)} />
                     <CustomButton
                         className="primary-btn"
-                        onClickEvent={() => {
-                            console.log('min: ', minValue, '\nmax: ', maxValue)
-                            const fetchCars = async () => {
-                                try {
-                                    const cars = await callFilterCars(brand, minValue!, maxValue!);
+                        onClickEvent={() => setIsFilterModalOpen(true)}
+                        textContent="Create filter"
+                    />
+                    {isFilterModalOpen &&
+                        <FiltersModal
+                            brand={brand}
+                            brands={brands}
+                            setBrand={val => setBrand(val)}
+                            minValue={minValue}
+                            maxValue={maxValue}
+                            setMinValue={val => setMinValue(val)}
+                            setMaxValue={val => setMaxValue(val)}
+                            clearFiltersFunction={() => {
+                                const fetchCars = async () => {
+                                    const cars = await callGetCars();
                                     setCars(cars);
-                                    setMinValue("")
-                                    setMaxValue("")
-                                } catch (error) {
-                                    console.log(error)
+                                    setBrand("default");
+                                    setMinValue("");
+                                    setMaxValue("");
+                                    setIsFilterModalOpen(false);
                                 }
-                            }
-                            fetchCars();
-                        }}
-                        textContent="Filter"
-                    />
+                                fetchCars();
+                            }}
+                            closeModal={() => setIsFilterModalOpen(false)}
+                            filterFunction={() => {
+                                console.log('min: ', minValue, '\nmax: ', maxValue)
+                                const fetchCars = async () => {
+                                    try {
+                                        const cars = await callFilterCars(brand, minValue!, maxValue!);
+                                        setCars(cars);
+                                        setBrand("default");
+                                        setMinValue("");
+                                        setMaxValue("");
+                                        setIsFilterModalOpen(false);
+                                    } catch (error) {
+                                        console.log(error)
+                                    }
+                                }
+                                fetchCars();
+                            }}
+                        />}
                     <CustomButton
-                        className="primary-btn"
+                        className="secondary-btn"
                         onClickEvent={() => {
                             const fetchCars = async () => {
                                 const cars = await callGetCars();
@@ -107,10 +125,11 @@ export default function CarsPage() {
                                 setBrand("default");
                                 setMinValue("");
                                 setMaxValue("");
+                                setIsFilterModalOpen(false);
                             }
                             fetchCars();
                         }}
-                        textContent="Clean filters"
+                        textContent="Clear filters"
                     />
                 </div>
                 <div className={style["edit-and-add-btns"]}>
