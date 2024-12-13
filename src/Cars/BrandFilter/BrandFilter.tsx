@@ -7,9 +7,9 @@ type BrandFilterProps = {
 export default function BrandFilter({ brands, brand, setBrand }: BrandFilterProps) {
     return (
         <div>
-            <select defaultValue={brand} value={brand} onChange={e => setBrand(e.target.value)}>
+            <select value={brand} onChange={e => setBrand(e.target.value)}>
                 <option value="default">Select a brand</option>
-                {brands.map(brand => { return <option value={brand}>{brand}</option> })}
+                {brands.map(brand => { return <option key={brand} value={brand}>{brand}</option> })}
             </select>
         </div>
     )

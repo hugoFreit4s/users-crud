@@ -1,3 +1,4 @@
+import { unstable_setDevServerHooks } from "react-router";
 import { postCarDTO } from "./Cars/CarsPage/CarsPage";
 import { postUserDTO } from "./Users/UsersPage/UsersPage";
 
@@ -85,26 +86,40 @@ export async function editCar(car: postCarDTO) {
     return await getCars();
 }
 
-export async function filterCars(brand: string, minValue: number, maxValue: number) {
+export async function filterCars(brand: string, minValue: string, maxValue: string) {
     const brandToFilter: string | undefined = brand === "default" ? undefined : brand;
-    let url;
-    if (brandToFilter !== undefined && minValue === undefined && maxValue === undefined) {
-        url = `http://localhost:8080/car/filter?brand=${brandToFilter}`;
-        const data = await fetch(url);
+    let minValueToFilter: number = 0;
+    if (minValue === "" || minValue === undefined) {
+        minValueToFilter = 0;
+    } else {
+        minValueToFilter = Number(minValue);
+    }
+    let maxValueToFilter: number | undefined = 0;
+    if (maxValue === "" || maxValue === undefined) {
+        maxValueToFilter = undefined;
+    } else {
+        maxValueToFilter = Number(maxValue);
+    }
+
+    if (brandToFilter !== undefined && maxValueToFilter !== undefined) {
+        console.log(`1: http://localhost:8080/car/filter?brand=${brand}&minValue=${minValueToFilter}&maxValue=${maxValueToFilter}`);
+        const data = await fetch(`http://localhost:8080/car/filter?brand=${brand}&minValue=${minValueToFilter}&maxValue=${maxValueToFilter}`);
         const res = data.json();
-        console.log(url);
         return res;
-    } else if (brandToFilter !== undefined && minValue !== undefined && maxValue === undefined) {
-        url = `http://localhost:8080/car/filter?brand=${brandToFilter}&minValue=${minValue}`;
-        const data = await fetch(url);
+    } else if (brandToFilter !== undefined && maxValueToFilter === undefined) {
+        console.log(`2: http://localhost:8080/car/filter?brand=${brand}&minValue=${minValueToFilter}`);
+        const data = await fetch(`http://localhost:8080/car/filter?brand=${brand}&minValue=${minValueToFilter}`);
         const res = data.json();
-        console.log(url);
         return res;
-    } else if (brandToFilter !== undefined && minValue === undefined && maxValue !== undefined) {
-        url = `http://localhost:8080/car/filter?brand=${brandToFilter}&maxValue=${maxValue}`;
-        const data = await fetch(url);
+    } else if (brandToFilter === undefined && maxValueToFilter !== undefined) {
+        console.log(`3: http://localhost:8080/car/filter?minValue=${minValueToFilter}&maxValue=${maxValueToFilter}`);
+        const data = await fetch(`http://localhost:8080/car/filter?minValue=${minValueToFilter}&maxValue=${maxValueToFilter}`);
         const res = data.json();
-        console.log(url);
+        return res;
+    } else {
+        console.log(`4: http://localhost:8080/car/filter?minValue=${minValueToFilter}`);
+        const data = await fetch(`http://localhost:8080/car/filter?minValue=${minValueToFilter}`);
+        const res = data.json();
         return res;
     }
 }

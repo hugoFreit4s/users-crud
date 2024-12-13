@@ -18,8 +18,8 @@ export default function CarsPage() {
     const [isCarListOpen, setIsCarListOpen] = useState<boolean>(false);
     const [brand, setBrand] = useState<string>("default");
     const [brands, setBrands] = useState<string[]>([]);
-    const [minValue, setMinValue] = useState<number>();
-    const [maxValue, setMaxValue] = useState<number>();
+    const [minValue, setMinValue] = useState<string>();
+    const [maxValue, setMaxValue] = useState<string>();
 
     async function callGetCars() {
         return await getCars();
@@ -29,7 +29,7 @@ export default function CarsPage() {
         return await getUsers();
     }
 
-    async function callFilterCars(brand: string, minValue: number, maxValue: number) {
+    async function callFilterCars(brand: string, minValue: string, maxValue: string) {
         return await filterCars(brand, minValue, maxValue);
     }
 
@@ -78,8 +78,8 @@ export default function CarsPage() {
                         brands={brands}
                         setBrand={brand => setBrand(brand)}
                     />
-                    <input type="number" value={minValue} onChange={e => setMinValue(Number(e.target.value))} />
-                    <input type="number" value={maxValue} onChange={e => setMaxValue(Number(e.target.value))} />
+                    <input type="number" value={minValue} onChange={e => setMinValue(e.target.value)} />
+                    <input type="number" value={maxValue} onChange={e => setMaxValue(e.target.value)} />
                     <CustomButton
                         className="primary-btn"
                         onClickEvent={() => {
@@ -87,7 +87,9 @@ export default function CarsPage() {
                             const fetchCars = async () => {
                                 try {
                                     const cars = await callFilterCars(brand, minValue!, maxValue!);
-                                    setCars(cars!);
+                                    setCars(cars);
+                                    setMinValue("")
+                                    setMaxValue("")
                                 } catch (error) {
                                     console.log(error)
                                 }
@@ -103,8 +105,8 @@ export default function CarsPage() {
                                 const cars = await callGetCars();
                                 setCars(cars);
                                 setBrand("default");
-                                setMinValue(undefined);
-                                setMaxValue(undefined);
+                                setMinValue("");
+                                setMaxValue("");
                             }
                             fetchCars();
                         }}
