@@ -122,8 +122,18 @@ export async function filterCars(brand: string, minValue: string | undefined, ma
         const res = data.json();
         return res;
     }
+}
 
-    // async function filterUsers(gender: string | undefined, age: number | undefined) {
-    //     await fetch(``)
-    // }
+export async function filterUsers(gender: string | undefined, age: string | undefined) {
+    const genderToFilter = gender === "default" ? undefined : gender;
+    const url = new URL("http://localhost:8080/user/filter");
+    if (genderToFilter !== undefined) {
+        url.searchParams.append("gender", genderToFilter);
+    }
+    if (age !== undefined) {
+        url.searchParams.append("age", age);
+    }
+    const data = await fetch(url);
+    const res = await data.json();
+    return res;
 }
