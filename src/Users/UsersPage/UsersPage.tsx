@@ -9,7 +9,7 @@ import ToastMessage from '../../ToastMessage/ToastMessage';
 import { useNavigate } from "react-router";
 import NavigateBackButton from "../../NavigateBackButton/NavigateBackButton";
 
-export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: Date | null, phone: string };
+export type postUserDTO = { id: number | null, name: string, gender: string, birthDate: string, phone: string };
 export type getUserDTO = { id: number, name: string, gender: string, phone: string, age: number, birthDate: Date | null };
 type ToastState = { message: string, isShown: boolean, category: "fail" | "success" | "alert" | string }
 
@@ -20,7 +20,8 @@ export default function UsersPage() {
     const [isUserModalOpened, setIsUserModalOpen] = useState<boolean>(false);
     const [toastState, setToastState] = useState<ToastState>({ message: "", category: "", isShown: false });
     const [genderToFilter, setGenderToFilter] = useState<string>("default");
-    const [ageToFilter, setAgeToFilter] = useState<string>();
+    const [minAge, setMinAge] = useState<string>();
+    const [maxAge, setMaxAge] = useState<string>();
     //TODO: Pesquisar sobre TODO na hora do commit
 
     async function callGetUsers() {
@@ -28,12 +29,19 @@ export default function UsersPage() {
     }
 
     async function callInsertUser(user: postUserDTO) {
-        const responseDTO = await insertUser(user);
-        setUsersList(responseDTO.users !== null ? responseDTO.users : usersList);
-        setToastState({ message: responseDTO.toastMessage, category: responseDTO.toastCategory, isShown: true })
-        setTimeout(() => {
-            setToastState({ ...toastState, isShown: false });
-        }, 800);
+        try {
+            const responseDTO = await insertUser(user);
+            setUsersList(responseDTO.users !== null ? responseDTO.users : usersList);
+            setToastState({ message: responseDTO.toastMessage, category: responseDTO.toastCategory, isShown: true })
+            setTimeout(() => {
+                setToastState({ ...toastState, isShown: false });
+            }, 800);
+        } catch (e) {
+            setToastState({ message: "Error. Try again!", category: "fail", isShown: true })
+            setTimeout(() => {
+                setToastState({ ...toastState, isShown: false });
+            }, 800);
+        }
     }
 
     async function callEditUser(user: postUserDTO) {
@@ -46,8 +54,8 @@ export default function UsersPage() {
         setUsersList(users);
     }
 
-    async function callFilterUser(gender: string | undefined, age: string | undefined) {
-        return await filterUsers(gender, age);
+    async function callFilterUser(gender: string | undefined, minAge: string | undefined, maxAge: string | undefined) {
+        return await filterUsers(gender, minAge, maxAge);
     }
 
     useEffect(() => {
@@ -64,6 +72,10 @@ export default function UsersPage() {
 
     return (
         <main>
+            {toastState?.isShown && <ToastMessage
+                category={toastState.category}
+                message={toastState.message}
+            />}
             <div className={style["top"]}>
                 <NavigateBackButton path="/" />
                 <select value={genderToFilter} onChange={e => setGenderToFilter(e.target.value)}>
@@ -72,13 +84,14 @@ export default function UsersPage() {
                     <option value="F">F</option>
                     <option value="Other">Other</option>
                 </select>
-                <input type="number" value={ageToFilter} onChange={e => setAgeToFilter(e.target.value)} style={{ border: "1px solid black" }} />
+                <input type="number" value={minAge} onChange={e => setMinAge(e.target.value)} style={{ border: "1px solid black" }} />
+                <input type="number" value={maxAge} onChange={e => setMaxAge(e.target.value)} style={{ border: "1px solid black" }} />
                 <CustomButton
                     className="primary-btn"
                     onClickEvent={() => {
                         const fetchFilteredUsers = async () => {
                             try {
-                                const filteredUsers = await callFilterUser(genderToFilter, ageToFilter);
+                                const filteredUsers = await callFilterUser(genderToFilter, minAge, maxAge);
                                 setUsersList(filteredUsers);
                             } catch (error) {
                                 console.log(error)
@@ -89,10 +102,6 @@ export default function UsersPage() {
                     textContent="Filter"
                 />
                 <div className={style["edit-and-add-btns"]}>
-                    {toastState?.isShown && <ToastMessage
-                        category={toastState.category}
-                        message={toastState.message}
-                    />}
                     <CustomButton
                         className="primary-btn"
                         onClickEvent={() => setIsInsertUserModalOpened(!isInsertUserModalOpened)}

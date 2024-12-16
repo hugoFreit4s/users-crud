@@ -124,15 +124,21 @@ export async function filterCars(brand: string, minValue: string | undefined, ma
     }
 }
 
-export async function filterUsers(gender: string | undefined, age: string | undefined) {
+export async function filterUsers(gender: string | undefined, minAge: string | undefined, maxAge: string | undefined) {
     const genderToFilter = gender === "default" ? undefined : gender;
     const url = new URL("http://localhost:8080/user/filter");
     if (genderToFilter !== undefined) {
         url.searchParams.append("gender", genderToFilter);
     }
-    if (age !== undefined) {
-        url.searchParams.append("age", age);
+
+    if (minAge !== undefined) {
+        url.searchParams.append("minAge", minAge);
     }
+
+    if (maxAge !== undefined) {
+        url.searchParams.append("maxAge", maxAge);
+    }
+    console.log(url)
     const data = await fetch(url);
     const res = await data.json();
     return res;
