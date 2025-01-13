@@ -1,0 +1,30 @@
+img {
+    height: 60px;
+    width: 60px;
+}
+
+.outside {
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 8px;
+    width: 300px;
+    padding: 5px 8px 5px 8px;
+}
+
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+hr {
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 8px;
+}
+
+.bottom {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+}

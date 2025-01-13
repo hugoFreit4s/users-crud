@@ -1,25 +1,13 @@
-import { Navigate, useNavigate } from "react-router";
-import CustomButton from "./CustomButton/CustomButton";
+import { useNavigate } from "react-router";
+import "./App.module.css";
 
 function App() {
   const navigate = useNavigate();
   return (
     <main>
-      <CustomButton
-        className="primary-btn"
-        onClickEvent={() => {
-          navigate("/users");
-        }}
-        textContent="Users"
-      />
-      <CustomButton
-        className="primary-btn"
-        onClickEvent={() => {
-          navigate("/cars");
-        }}
-        textContent="Cars"
-      />
-    </main>
+      <button onClick={() => navigate("/users")}>user</button>
+      <button onClick={() => navigate("/cars")}>car</button>
+    </main >
   )
 }
 
