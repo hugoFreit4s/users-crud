@@ -1,5 +1,5 @@
 import style from "./UserContainer.module.css";
-import { getUserDTO } from "./UsersPage";
+import { getUserDTO } from "./AllUsersContainers";
 import profilePic from "../../public/profile-pic.png";
 import CustomButton from "../CustomButton/CustomButton";
 
