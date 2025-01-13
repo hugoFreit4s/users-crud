@@ -8,6 +8,7 @@ img {
     border-radius: 8px;
     width: 300px;
     padding: 5px 8px 5px 8px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .top {
@@ -15,6 +16,10 @@ img {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.top-right {
+    line-height: 0;
 }
 
 hr {
@@ -27,4 +32,13 @@ hr {
     display: flex;
     justify-content: end;
     gap: 20px;
+}
+
+.primary-text {
+    font-size: 20px;
+}
+
+.secondary-text {
+    font-size: 15px;
+    color: rgb(90, 88, 88);
 }

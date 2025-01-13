@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import './index.css';
 import App from './App.tsx';
-import UsersPage from './Users/UsersPage/UsersPage.tsx';
-import CarsPage from './Cars/CarsPage/CarsPage.tsx';
+import UsersPage from './components/UsersPage/UsersPage.tsx';
+import CarsPage from './components/CarsPage/CarsPage.tsx';
 import UserProvider from './context/userContext.tsx';
 
 createRoot(document.getElementById('root')!).render(

@@ -1,0 +1,70 @@
+.btn {
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 2px 10px 2px 10px;
+    font-weight: 700;
+    color: white;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+.btn-primary {
+    border-color: #014083;
+    background-color: #0069D9;
+}
+
+.btn-primary:hover {
+    border-color: #1a60b3;
+    background-color: #3399ff;
+}
+
+.btn-secondary {
+    border-color: #828d97;
+    background-color: #6C757D;
+}
+
+.btn-secondary:hover {
+    border-color: #9aa4b2;
+    background-color: #8c949f;
+}
+
+.btn-success {
+    border-color: #175f27;
+    background-color: #218838;
+}
+
+.btn-success:hover {
+    border-color: #3a7d4c;
+    background-color: #40c057;
+}
+
+.btn-danger {
+    border-color: #831f29;
+    background-color: #DC3545;
+}
+
+.btn-danger:hover {
+    border-color: #b5475c;
+    background-color: #e4606d;
+}
+
+.btn-warning {
+    border-color: #b48906;
+    background-color: #FFC107;
+}
+
+.btn-warning:hover {
+    border-color: #d59e19;
+    background-color: #ffca3c;
+}
+
+.btn-dark {
+    border-color: #788491;
+    background-color: #23272B;
+}
+
+.btn-dark:hover {
+    border-color: #99a2b1;
+    background-color: #444c55;
+}

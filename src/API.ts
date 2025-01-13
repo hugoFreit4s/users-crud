@@ -1,6 +1,6 @@
 import { unstable_setDevServerHooks } from "react-router";
 import { postCarDTO } from "./Cars/CarsPage/CarsPage";
-import { postUserDTO } from "./Users/UsersPage/UsersPage";
+import { postUserDTO } from "./components/UsersPage/UsersPage";
 
 export async function getUsers() {
     const data = await fetch("http://localhost:8080/user", { method: "GET" });
