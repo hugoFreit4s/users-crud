@@ -3,11 +3,13 @@ import style from "./AllUsersContainers.module.css";
 import { getUsers } from "../../API";
 import UserContainer from "./UserContainer";
 
-export type postUserDTO = { id: null, name: string, gender: string, birthDate: string, phone: string };
+export type postUserDTO = { id: null | number, name: string, gender: string, birthDate: Date, phone: string };
 export type getUserDTO = { id: number, name: string, gender: string, phone: string, age: number, birthDate: Date };
+
 
 export default function AllUsersContainers() {
     const [users, setUsers] = useState<getUserDTO[]>([]);
+    useEffect(() => { console.log(users) }, [users])
 
     async function callGetUsers() {
         return await getUsers();
@@ -28,7 +30,21 @@ export default function AllUsersContainers() {
     return (
         <main className={style.main}>
             {users.map(u => {
-                return <UserContainer user={u} key={u.id} />
+                return <UserContainer
+                    user={u}
+                    refreshUsers={() => {
+                        const fetchUsers = async () => {
+                            try {
+                                const users = await callGetUsers();
+                                setUsers(users);
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        }
+                        fetchUsers();
+                    }}
+                    key={u.id}
+                />
             })}
         </main>
     )

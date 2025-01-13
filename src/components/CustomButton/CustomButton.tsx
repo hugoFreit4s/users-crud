@@ -6,6 +6,6 @@ type CustomButtonProps = {
 }
 export default function CustomButton({ text, category, action }: CustomButtonProps) {
     return (
-        <div className={`${style[`btn`]} ${style[`btn-${category}`]}`} onClick={() => action}>{text}</div>
+        <div className={`${style[`btn`]} ${style[`btn-${category}`]}`} onClick={action}>{text}</div>
     )
 }
